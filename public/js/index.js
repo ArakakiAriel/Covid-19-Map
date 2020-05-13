@@ -106,9 +106,7 @@ async function showStoresMarkers(countryCode) {
     var phoneNumber = "SomePhoneNumber";
     var address = "SomeAdress";
     bounds.extend(latlng)
-    if (countryCode == null) {
       createMarker(name, index + 1, latlng);
-    }
   }
 }
 
@@ -147,6 +145,9 @@ function createMarker(name, index, latlng) {
                       <div class="marker-store-name">
                           <label style="font-size: large;"><b>${name}</b></label>
                       </div>
+                      <div class="marker-store-status">
+                      Last updated date: ${countryGrowth.date}
+                      </div>      
                       <div class="marker-store-status">
                       Days since previous update: ${countryGrowth.days_since_previous_update}
                       </div>      
