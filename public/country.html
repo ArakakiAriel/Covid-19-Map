@@ -8,7 +8,7 @@
     <title>Covid-19 Tracker</title>
     <script src="/js/result-2020-05-11.js"></script>
     <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
-    <script src="/js/table.js"></script>
+    <script src="/js/country.js"></script>
     <link rel="stylesheet" href="../style/style.css">
     <style>
       table, th, td{
@@ -80,7 +80,7 @@
                     Statistics
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/country.html">By Country</a>
+                    <a class="dropdown-item" href="/country_growth.html">By Country</a>
                     <a class="dropdown-item" href="/country_growth.html">Country Growth</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Global</a>
@@ -99,8 +99,43 @@
     
     <!--Buscamos un Jumbotron en la pagina de bootstrap y lo pegamos-->
             <div class="jumbotron jumbotron-fluid">
+              <div class="container">
+                    <div class="col">
+                      <div class="input-group mb-3">
+                        <input type="text" id="country-name-input" class="form-control" placeholder="Enter a Country (For Example: US)" aria-label="countryName" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-dark" type="button" onclick="makeTableByCountry()"">Search</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
                 <div class="container">
-                  <table class="my-table-container-s">
+                  <table class="my-country-table-container">
+                    <tr>
+                      <th rowspan = "2" style="background-color: #343a40; color: white">Updated date</th>
+                      <th rowspan = "2" style="background-color: #343a40; color: white">Days Since Previous Update</th>
+
+
+                      <th colspan="4" style="background-color: #343a40; color: white">Total Of</th>
+                      <th colspan="3" style="background-color: #343a40; color: white">Percentage Of</th>
+                      <th colspan="5" style="background-color: #343a40; color: white">Growth</th>
+                    </tr>
+                    <tr>
+                      <th style="background-color: #343a40; color: white">Confirmed</th>
+                      <th style="background-color: #343a40; color: white">Actives</th>
+                      <th style="background-color: #343a40; color: white">Deaths</th>
+                      <th style="background-color: #343a40; color: white">Recovered</th>
+
+                      <th style="background-color: #343a40; color: white">Actives</th>
+                      <th style="background-color: #343a40; color: white">Deaths</th>
+                      <th style="background-color: #343a40; color: white">Recovered</th>
+
+                      <th style="background-color: #343a40; color: white">Confirmed</th>
+                      <th style="background-color: #343a40; color: white">Actives</th>
+                      <th style="background-color: #343a40; color: white">Deaths</th>
+                      <th style="background-color: #343a40; color: white">Recovered</th>
+                      <th style="background-color: #343a40; color: white">Growth Factor</th>
+                    </tr>
                   </table>
                 </div>
             </div>
