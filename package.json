@@ -1,0 +1,28 @@
+{
+  "name": "covid-19-map",
+  "version": "1.0.0",
+  "description": "Covid Map Tracker",
+  "main": "index.html",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
+    "hbs": "^4.1.1",
+    "ioredis": "^4.16.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "nodemon": "nodemon server -e js,hbs,html,css",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArakakiAriel/Covid-19-Map.git"
+  },
+  "author": "ArakakiArielKenji",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArakakiAriel/Covid-19-Map/issues"
+  },
+  "homepage": "https://github.com/ArakakiAriel/Covid-19-Map#readme"
+}
