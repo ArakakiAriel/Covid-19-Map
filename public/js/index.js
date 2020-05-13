@@ -30,7 +30,7 @@ function initMap() {
 
 
 async function consultCasesToday() {
-  let apiUrl = 'http://localhost:3000/api/covid/cases'//'https://covid-api-info.herokuapp.com/api/covid/cases/';
+  let apiUrl = 'http:s//covid-api-info.herokuapp.com/api/covid/cases'//'https://covid-api-info.herokuapp.com/api/covid/cases/';
   countryCases = await fetch(apiUrl).then(response => {
     return response.json();
   }).then(data => {
@@ -111,7 +111,7 @@ async function showStoresMarkers(countryCode) {
 }
 
 async function showGrowth(country) {
-  let apiUrl = `http://localhost:3000/api/covid/cases/country/${country}/growth`//'https://covid-api-info.herokuapp.com/api/covid/cases/';
+  let apiUrl = `http:s//covid-api-info.herokuapp.com/api/covid/cases/country/${country}/growth`//'https://covid-api-info.herokuapp.com/api/covid/cases/';
   let countries = await fetch(apiUrl).then(response => {
     return response.json();
   }).then(data => {
