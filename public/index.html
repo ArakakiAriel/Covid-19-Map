@@ -7,9 +7,73 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Covid-19 Tracker</title>
     <script src="/js/result-2020-05-11.js"></script>
-    <script src="/js/index.js"></script>
     <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
-    <link rel="stylesheet" href="../style/style.css">
+    <script src="/js/table.js"></script>
+    <style>
+      table, th, td{
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      .table-data{
+        background-color: #bdd2da;
+      }
+      th, td{
+        padding: 10px;
+        text-align: center;
+        width: 1000px;
+      }
+      .my-col-country {
+        
+        max-width: 300px;
+        max-width: 300px;
+      }
+      .my-table-container {
+        border: 1px solid rgb(184, 184, 184);
+      }
+      .jumbotron {
+        background-image: url("/img/mapBackground.jpg");
+        background-repeat: repeat;
+      }
+      .global-data{
+        color: white;
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 5%, rgba(0,212,255,0) 70%);
+        
+      }
+      .table-country-name{
+        font-size: 20px;
+      }
+      .table-tittle{
+        font-size: 24px;
+        background-color: #193a43; 
+        color: white
+      }
+      .my-col-position{
+        max-width: 60px;
+        max-width: 60px;
+        text-align: center;
+        align-content: center;
+      }
+      .my-col-position-t{
+        max-width: 60px;
+        max-width: 60px;
+        text-align: center;
+        align-content: center;
+      }
+      .my-col-position-ts{
+        max-width: 60px;
+        max-width: 60px;
+        text-align: center;
+        align-content: center;
+      }
+      .my-row {
+        border: 1px solid rgb(184, 184, 184);
+        text-align: center;
+      }
+      .my-col {
+        border: 1px solid rgb(184, 184, 184);
+        text-align: center;
+      }
+    </style>
 </head>
 <body>
     <!--Buscamos un Navbar en la pagina de bootstrap y lo pegamos-->
@@ -51,19 +115,16 @@
               </form>
             </div>
           </nav>
-    
+          <!--div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;"-->
     <!--Buscamos un Jumbotron en la pagina de bootstrap y lo pegamos-->
-            <div class="jumbotron jumbotron-fluid">
-                
+            <div class="jumbotron">
                 <div class="container">
-                    <h1 class="display-5">Cases Today: </h1>
-                    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-                    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-                    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-                    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                  <div class="global-data">
+                  </div>   
+                  <table class="my-table-container-s">
+                  </table>
                 </div>
             </div>
-
             <footer>
                 Ariel Kenji Arakaki - 2020
             </footer>

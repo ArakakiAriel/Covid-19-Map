@@ -11,32 +11,32 @@ async function makeTableByCountry() {
 
     var countriesHtml = `
     <tr>
-      <th colspan="14" style="background-color: #343a40; color: white">${countryName.toUpperCase()}</th>
+      <th colspan="14" style="background-color: #132c31; color: white">${countryName.toUpperCase()}</th>
     <tr>
     <tr>
-      <th rowspan = "2" style="background-color: #343a40; color: white">Updated_date</th>
-      <th rowspan = "2" style="background-color: #343a40; color: white">Days Since Previous Update</th>
+      <th rowspan = "2" style="background-color: #132c31; color: white">Updated_date</th>
+      <th rowspan = "2" style="background-color: #132c31; color: white">Days Since Previous Update</th>
 
 
-      <th colspan="4" style="background-color: #343a40; color: white">Total Of</th>
-      <th colspan="3" style="background-color: #343a40; color: white">Percentage Of</th>
-      <th colspan="5" style="background-color: #343a40; color: white">Growth</th>
+      <th colspan="4" style="background-color: #132c31; color: white">Total Of</th>
+      <th colspan="3" style="background-color: #132c31; color: white">Percentage Of</th>
+      <th colspan="5" style="background-color: #132c31; color: white">Growth</th>
     </tr>
     <tr>
-      <th style="background-color: #343a40; color: white">Confirmed</th>
-      <th style="background-color: #343a40; color: white">Actives</th>
-      <th style="background-color: #343a40; color: white">Deaths</th>
-      <th style="background-color: #343a40; color: white">Recovered</th>
+      <th style="background-color: #132c31; color: white">Confirmed</th>
+      <th style="background-color: #132c31; color: white">Actives</th>
+      <th style="background-color: #132c31; color: white">Deaths</th>
+      <th style="background-color: #132c31; color: white">Recovered</th>
 
-      <th style="background-color: #343a40; color: white">Actives</th>
-      <th style="background-color: #343a40; color: white">Deaths</th>
-      <th style="background-color: #343a40; color: white">Recovered</th>
+      <th style="background-color: #132c31; color: white">Actives</th>
+      <th style="background-color: #132c31; color: white">Deaths</th>
+      <th style="background-color: #132c31; color: white">Recovered</th>
 
-      <th style="background-color: #343a40; color: white">New Confirmed</th>
-      <th style="background-color: #343a40; color: white">New Actives</th>
-      <th style="background-color: #343a40; color: white">New Deaths</th>
-      <th style="background-color: #343a40; color: white">New Recovered</th>
-      <th style="background-color: #343a40; color: white">Growth Factor</th>
+      <th style="background-color: #132c31; color: white">New Confirmed</th>
+      <th style="background-color: #132c31; color: white">New Actives</th>
+      <th style="background-color: #132c31; color: white">New Deaths</th>
+      <th style="background-color: #132c31; color: white">New Recovered</th>
+      <th style="background-color: #132c31; color: white">Growth Factor</th>
     </tr>`;
     for (let i = 0; i < countryData.length; i++) {
         if(i < countryData.length - 1){
