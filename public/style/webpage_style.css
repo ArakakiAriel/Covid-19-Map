@@ -1,0 +1,83 @@
+table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  .table-data{
+    background-color: #bdd2da;
+  }
+  th, td{
+    padding: 10px;
+    text-align: center;
+    width: 1000px;
+  }
+  .my-col-country {
+    
+    max-width: 300px;
+    max-width: 300px;
+  }
+  .my-table-container {
+    border: 1px solid rgb(184, 184, 184);
+  }
+  body{
+    background-image: url("/img/mapBackground.jpg");
+    background-repeat: repeat;
+  }
+  .jumbotron {
+   background: rgba(0, 0, 0, 0.0);
+  }
+  .data-header{
+    text-align: center;
+  }
+  .data-col-1{
+    padding-left: 15%;
+  }
+  .data-col-1, .data-col-2{
+    padding-top: 20px;
+  }
+  .global-data{
+    color: white;
+    background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(0,0,0,1) 25%, rgba(0,0,0,1) 85%, rgba(0,212,255,0) 100%);  
+    padding-bottom: 30px;
+    
+  }
+  .table-data-percentages{
+    background-color: #9acadd
+  }
+  .table-country-name{
+    font-size: 20px;
+  }
+  .table-tittle{
+    font-size: 24px;
+    background-color: #193a43; 
+    color: white
+  }
+  .country-table-tittle{
+    background-color: #193a43; 
+    color: white
+  }
+  .my-col-position{
+    max-width: 60px;
+    max-width: 60px;
+    text-align: center;
+    align-content: center;
+  }
+  .my-col-position-t{
+    max-width: 60px;
+    max-width: 60px;
+    text-align: center;
+    align-content: center;
+  }
+  .my-col-position-ts{
+    max-width: 60px;
+    max-width: 60px;
+    text-align: center;
+    align-content: center;
+  }
+  .my-row {
+    border: 1px solid rgb(184, 184, 184);
+    text-align: center;
+  }
+  .my-col {
+    border: 1px solid rgb(184, 184, 184);
+    text-align: center;
+  }
