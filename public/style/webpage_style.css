@@ -40,6 +40,9 @@ table, th, td{
     padding-bottom: 30px;
     
   }
+  footer{
+    background-color: #193a43;
+  }
   .table-data-percentages{
     background-color: #9acadd
   }

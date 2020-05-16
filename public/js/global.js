@@ -1,9 +1,7 @@
 window.onload = () => {
-    makeCountryCasesTable();
-    loadGlobalCases();
 }
 
-async function makeCountryCasesTable(countryCode) {
+async function makeGlobalCasesTable(countryCode) {
 
     let countries = await consultCasesToday();
     let countryName;
