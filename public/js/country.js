@@ -11,32 +11,32 @@ async function makeTableByCountry() {
 
     var countriesHtml = `
     <tr>
-      <th colspan="14" style="background-color: #132c31; color: white">${countryName.toUpperCase()}</th>
+      <th colspan="14" class="country-table-tittle">${countryName.toUpperCase()}</th>
     <tr>
     <tr>
-      <th rowspan = "2" style="background-color: #132c31; color: white">Updated_date</th>
-      <th rowspan = "2" style="background-color: #132c31; color: white">Days Since Previous Update</th>
+      <th rowspan = "2" class="country-table-tittle">Updated_date</th>
+      <th rowspan = "2" class="country-table-tittle">Days Since Previous Update</th>
 
 
-      <th colspan="4" style="background-color: #132c31; color: white">Total Of</th>
-      <th colspan="3" style="background-color: #132c31; color: white">Percentage Of</th>
-      <th colspan="5" style="background-color: #132c31; color: white">Growth</th>
+      <th colspan="4" class="country-table-tittle">Total Of</th>
+      <th colspan="3" class="country-table-tittle">Percentage Of</th>
+      <th colspan="5" class="country-table-tittle">Growth</th>
     </tr>
     <tr>
-      <th style="background-color: #132c31; color: white">Confirmed</th>
-      <th style="background-color: #132c31; color: white">Actives</th>
-      <th style="background-color: #132c31; color: white">Deaths</th>
-      <th style="background-color: #132c31; color: white">Recovered</th>
+      <th class="country-table-tittle">Confirmed</th>
+      <th class="country-table-tittle">Actives</th>
+      <th class="country-table-tittle">Deaths</th>
+      <th class="country-table-tittle">Recovered</th>
 
-      <th style="background-color: #132c31; color: white">Actives</th>
-      <th style="background-color: #132c31; color: white">Deaths</th>
-      <th style="background-color: #132c31; color: white">Recovered</th>
+      <th class="country-table-tittle">Actives</th>
+      <th class="country-table-tittle">Deaths</th>
+      <th class="country-table-tittle">Recovered</th>
 
-      <th style="background-color: #132c31; color: white">New Confirmed</th>
-      <th style="background-color: #132c31; color: white">New Actives</th>
-      <th style="background-color: #132c31; color: white">New Deaths</th>
-      <th style="background-color: #132c31; color: white">New Recovered</th>
-      <th style="background-color: #132c31; color: white">Growth Factor</th>
+      <th class="country-table-tittle">New Confirmed</th>
+      <th class="country-table-tittle">New Actives</th>
+      <th class="country-table-tittle">New Deaths</th>
+      <th class="country-table-tittle">New Recovered</th>
+      <th class="country-table-tittle">Growth Factor</th>
     </tr>`;
     for (let i = 0; i < countryData.length; i++) {
         if(i < countryData.length - 1){
@@ -50,15 +50,15 @@ async function makeTableByCountry() {
             let greenTD = `<td style="color: green; background-color: #d8e6da">`
             countriesHtml += `
             <tr>
-              <td>${countryData[i].updated_date}</td>
-              <td style="background-color: #c3ceda">${countryGrowthData[i].days_since_previous_update}</td>
-              <td>${countryData[i].total.confirmed}</td>
-              <td>${countryData[i].total.actives}</td>
-              <td>${countryData[i].total.deaths}</td>
-              <td>${countryData[i].total.recovered}</td>
-              <td style="background-color: #c3ceda" >${countryData[i].percentage.actives}</td>
-              <td style="background-color: #c3ceda" >${countryData[i].percentage.deaths}</td>
-              <td style="background-color: #c3ceda" >${countryData[i].percentage.recovered}</td>
+              <td class="table-data">${countryData[i].updated_date}</td>
+              <td class="table-data-percentages">${countryGrowthData[i].days_since_previous_update}</td>
+              <td class="table-data">${countryData[i].total.confirmed}</td>
+              <td class="table-data">${countryData[i].total.actives}</td>
+              <td class="table-data">${countryData[i].total.deaths}</td>
+              <td class="table-data">${countryData[i].total.recovered}</td>
+              <td class="table-data-percentages" >${countryData[i].percentage.actives}</td>
+              <td class="table-data-percentages" >${countryData[i].percentage.deaths}</td>
+              <td class="table-data-percentages" >${countryData[i].percentage.recovered}</td>
             `
             if(newConfirmed > 0){
                 countriesHtml += redTD + "+" + newConfirmed + "</td>";
@@ -83,7 +83,7 @@ async function makeTableByCountry() {
                 countriesHtml += `<td style=" background-color: #e6e6d8">` + newRecovered + "</td>"
             }
             countriesHtml += `
-            <td>${countryGrowthData[i].growth_factor}</td>
+            <td class="table-data">${countryGrowthData[i].growth_factor}</td>
             </tr>`
             
     
@@ -91,20 +91,20 @@ async function makeTableByCountry() {
         }else{
             countriesHtml += `
             <tr>
-              <td>${countryData[i].updated_date}</td>
-              <td></td>
-              <td>${countryData[i].total.confirmed}</td>
-              <td>${countryData[i].total.actives}</td>
-              <td>${countryData[i].total.deaths}</td>
-              <td>${countryData[i].total.recovered}</td>
-              <td style="background-color: #c3ceda" >${countryData[i].percentage.actives}</td>
-              <td style="background-color: #c3ceda" >${countryData[i].percentage.deaths}</td>
-              <td style="background-color: #c3ceda" >${countryData[i].percentage.recovered}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td class="table-data">${countryData[i].updated_date}</td>
+              <td class="table-data"></td>
+              <td class="table-data">${countryData[i].total.confirmed}</td>
+              <td class="table-data">${countryData[i].total.actives}</td>
+              <td class="table-data">${countryData[i].total.deaths}</td>
+              <td class="table-data">${countryData[i].total.recovered}</td>
+              <td class="table-data-percentages" >${countryData[i].percentage.actives}</td>
+              <td class="table-data-percentages" >${countryData[i].percentage.deaths}</td>
+              <td class="table-data-percentages" >${countryData[i].percentage.recovered}</td>
+              <td class="table-data"></td>
+              <td class="table-data"></td>
+              <td class="table-data"></td>
+              <td class="table-data"></td>
+              <td class="table-data"></td>
             </tr>
                 `
 
@@ -139,4 +139,10 @@ async function consultGrowthOnCountry(country){
         return {};
     });
     return countryData;
+}
+
+function search() {
+    if(event.key === 'Enter') {
+        makeTableByCountry();       
+    }
 }

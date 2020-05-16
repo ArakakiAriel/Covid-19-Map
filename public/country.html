@@ -5,56 +5,12 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Covid-19 Tracker</title>
-    <script src="/js/result-2020-05-11.js"></script>
+    <title>Covid-19 Tracker - Statistics By Country</title>
+    <link rel = "icon" type = "image/png" href = "./img/covid-icon.png">
     <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
     <script src="/js/country.js"></script>
-    <link rel="stylesheet" href="../style/style.css">
-    <style>
-      table, th, td{
-        border: 1px solid black;
-        border-collapse: collapse;
-      }
-      th, td{
-        padding: 10px;
-        text-align: center;
-        width: 1000px;
-      }
-      .my-col-country {
-        
-        max-width: 300px;
-        max-width: 300px;
-      }
-      .my-table-container {
-        border: 1px solid rgb(184, 184, 184);
-      }
-      .my-col-position{
-        max-width: 60px;
-        max-width: 60px;
-        text-align: center;
-        align-content: center;
-      }
-      .my-col-position-t{
-        max-width: 60px;
-        max-width: 60px;
-        text-align: center;
-        align-content: center;
-      }
-      .my-col-position-ts{
-        max-width: 60px;
-        max-width: 60px;
-        text-align: center;
-        align-content: center;
-      }
-      .my-row {
-        border: 1px solid rgb(184, 184, 184);
-        text-align: center;
-      }
-      .my-col {
-        border: 1px solid rgb(184, 184, 184);
-        text-align: center;
-      }
-    </style>
+    <link rel="stylesheet" href="../style/webpage_style.css">
+    
 </head>
 <body>
     <!--Buscamos un Navbar en la pagina de bootstrap y lo pegamos-->
@@ -72,28 +28,20 @@
                 <li class="nav-item">
                   <a class="nav-link" href="/map.html">Map</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/table.html">Table</a>
-                </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Statistics
+                    Info
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/country_growth.html">By Country</a>
-                    <a class="dropdown-item" href="/country_growth.html">Country Growth</a>
+                    <a class="dropdown-item" href="/country.html">By Country</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Global</a>
+                    <a class="dropdown-item" href="/global_info_last_days.html">Global Last 10 Days</a>
                   </div>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Log-in</a>
                 </li>
               </ul>
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form>
             </div>
           </nav>
     
@@ -102,9 +50,9 @@
               <div class="container">
                     <div class="col">
                       <div class="input-group mb-3">
-                        <input type="text" id="country-name-input" class="form-control" placeholder="Enter a Country (For Example: US)" aria-label="countryName" aria-describedby="basic-addon2">
+                        <input type="text" id="country-name-input" class="form-control" placeholder="Enter a Country (For Example: US)" aria-label="countryName" aria-describedby="basic-addon2" onkeydown="search(this)">
                         <div class="input-group-append">
-                          <button class="btn btn-dark" type="button" onclick="makeTableByCountry()"">Search</button>
+                          <button class="btn btn-dark" type="button" onclick="makeTableByCountry()">Search</button>
                         </div>
                       </div>
                     </div>
@@ -112,29 +60,29 @@
                 <div class="container">
                   <table class="my-country-table-container">
                     <tr>
-                      <th rowspan = "2" style="background-color: #132c31; color: white">Updated date</th>
-                      <th rowspan = "2" style="background-color: #132c31; color: white">Days Since Previous Update</th>
+                      <th rowspan = "2" class="country-table-tittle">Updated date</th>
+                      <th rowspan = "2" class="country-table-tittle">Days Since Previous Update</th>
 
 
-                      <th colspan="4" style="background-color: #132c31; color: white">Total Of</th>
-                      <th colspan="3" style="background-color: #132c31; color: white">Percentage Of</th>
-                      <th colspan="5" style="background-color: #132c31; color: white">Growth</th>
+                      <th colspan="4" class="country-table-tittle">Total Of</th>
+                      <th colspan="3" class="country-table-tittle">Percentage Of</th>
+                      <th colspan="5" class="country-table-tittle">Growth</th>
                     </tr>
                     <tr>
-                      <th style="background-color: #132c31; color: white">Confirmed</th>
-                      <th style="background-color: #132c31; color: white">Actives</th>
-                      <th style="background-color: #132c31; color: white">Deaths</th>
-                      <th style="background-color: #132c31; color: white">Recovered</th>
+                      <th class="country-table-tittle">Confirmed</th>
+                      <th class="country-table-tittle">Actives</th>
+                      <th class="country-table-tittle">Deaths</th>
+                      <th class="country-table-tittle">Recovered</th>
 
-                      <th style="background-color: #132c31; color: white">Actives</th>
-                      <th style="background-color: #132c31; color: white">Deaths</th>
-                      <th style="background-color: #132c31; color: white">Recovered</th>
+                      <th class="country-table-tittle">Actives</th>
+                      <th class="country-table-tittle">Deaths</th>
+                      <th class="country-table-tittle">Recovered</th>
 
-                      <th style="background-color: #132c31; color: white">Confirmed</th>
-                      <th style="background-color: #132c31; color: white">Actives</th>
-                      <th style="background-color: #132c31; color: white">Deaths</th>
-                      <th style="background-color: #132c31; color: white">Recovered</th>
-                      <th style="background-color: #132c31; color: white">Growth Factor</th>
+                      <th class="country-table-tittle">Confirmed</th>
+                      <th class="country-table-tittle">Actives</th>
+                      <th class="country-table-tittle">Deaths</th>
+                      <th class="country-table-tittle">Recovered</th>
+                      <th class="country-table-tittle">Growth Factor</th>
                     </tr>
                   </table>
                 </div>
