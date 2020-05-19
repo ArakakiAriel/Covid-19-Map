@@ -88,20 +88,20 @@ async function loadGlobalCases(){
 
     let globalCases = await consultGlobalStatistics();
     var globalHeader = `
-    <h2 style="padding-bottom: 10px;">${getFullDate()} - Total infected countries: ${globalCases.infected_countries}</h1>
+    <h2 style="padding-bottom: 10px;">${getFullDate()} - Total infected countries: ${globalCases.infected_countries}</h2>
     `
     var global = `
-    <h4 style="padding-bottom: 10px;">Total Confirmed Cases: ${globalCases.total.confirmed}</h3>
-    <h4 style="padding-bottom: 10px;">Total Active Cases:  ${globalCases.total.actives}</h3>
-    <h4 style="padding-bottom: 10px;">Total Death Cases:  ${globalCases.total.deaths}</h3>
-    <h4>Total Recovered Cases:  ${globalCases.total.recovered}</h3>
+    <div style="padding-bottom: 10px;">Total Confirmed Cases: ${globalCases.total.confirmed}</h4>
+    <div style="padding-bottom: 10px;">Total Active Cases:  ${globalCases.total.actives}</h4>
+    <div style="padding-bottom: 10px;">Total Death Cases:  ${globalCases.total.deaths}</h4>
+    <h4>Total Recovered Cases:  ${globalCases.total.recovered}</h4>
     `;
 
     var global2 = `
-    <h4 style="padding-bottom: 10px;">Total Closed Cases:  ${globalCases.total.closed_cases}</h3>
-    <h4 style="padding-bottom: 10px;">Average Death Cases: ${globalCases.percentage.deaths}</h3>
-    <h4 style="padding-bottom: 10px;">Average Closed Cases: ${globalCases.percentage.closed_cases}</h3>
-    <h4>Mortality Rate: ${globalCases.percentage.mortality_rate}</h3>
+    <div style="padding-bottom: 10px;">Total Closed Cases:  ${globalCases.total.closed_cases}</h4>
+    <div style="padding-bottom: 10px;">Average Death Cases: ${globalCases.percentage.deaths}</h4>
+    <div style="padding-bottom: 10px;">Average Closed Cases: ${globalCases.percentage.closed_cases}</h4>
+    <h4>Mortality Rate: ${globalCases.percentage.mortality_rate}</h4>
     `
     document.querySelector('.data-header').innerHTML = globalHeader
     document.querySelector('.data-col-1').innerHTML = global

@@ -37,11 +37,11 @@ async function consultCasesToday() {
     console.log(data.length);
     return data;
   }).catch(err => {
-    return {};
     console.log("Hubo un error: " + err);
+    return {};
   });
 
-  return countries;
+  return countryCases;
 }
 
 async function displayStores(countryCode) {
@@ -94,15 +94,16 @@ function setOnClickListener(index) {
 
 async function showStoresMarkers(countryCode) {
   var bounds = new google.maps.LatLngBounds();
-  for (var [index, country] of countries.entries()) {
+  var countryCases = await consultCasesToday();
+  for (let index=0; index < countryCases.length; index++) {
 
 
     var latlng = new google.maps.LatLng(
-      countries[index].coordinates.latitude,
-      countries[index].coordinates.longitude);
+      countryCases[index].coordinates.latitude,
+      countryCases[index].coordinates.longitude);
 
     var status = "Some status";
-    var name = countries[index].country;
+    var name = countryCases[index].country;
     var phoneNumber = "SomePhoneNumber";
     var address = "SomeAdress";
     bounds.extend(latlng)
@@ -137,6 +138,7 @@ function createMarker(name, index, latlng) {
     label: index.toString()
   });
   google.maps.event.addListener(marker, 'click', async function () {
+    console.log(name);
     let countryGrowth = await showGrowth(name);
     console.log(countryGrowth);
     var aux = `
@@ -149,7 +151,7 @@ function createMarker(name, index, latlng) {
                       Last updated date: ${countryGrowth.date}
                       </div>      
                       <div class="marker-store-status">
-                      Days since previous update: ${countryGrowth.days_since_previous_update}
+                      Days since previous update: ${(countryGrowth.days_since_previous_update)}
                       </div>      
                   </div>
                   <div class= "marker-store-info">

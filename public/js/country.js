@@ -9,6 +9,8 @@ async function makeTableByCountry() {
     let countryData = await consultCasesOnCountry(countryName);
     let countryGrowthData = await consultGrowthOnCountry(countryName);
 
+    showStatisticsLastDays(countryName, countryData, countryGrowthData);
+    
     var countriesHtml = `
     <tr>
       <th colspan="14" class="country-table-tittle">${countryName.toUpperCase()}</th>
@@ -145,4 +147,43 @@ function search() {
     if(event.key === 'Enter') {
         makeTableByCountry();       
     }
+}
+
+async function showStatisticsLastDays(countryName, countryData, countryGrowthData){
+
+    
+    var globalHeader = `
+    <div class="total-tittle total-regular">${countryName.toUpperCase()}</div>
+    `
+    var global = `
+    <div class="total-tittle total-regular">Global Confirmed Cases </div>
+    <div class="total-result">${""}</div>
+    <div class="total-tittle total-regular">Global Active Cases </div>
+    <div class="total-result total-last-item">${""}</div>
+    <div class="total-tittle death-tittle">Mortality Rate </div>
+    <div class="total-result death">${""}</div>
+    <div class="total-tittle death-tittle">Average Death Cases </div>
+    <div class="total-result death">${""}</div>
+    `;
+
+    var global2 = `
+    <div class="total-tittle death-tittle">Global Death Cases </div>
+    <div class="total-result death">${""}</div>
+    <div class="total-tittle recovered-tittle">Global Recovered Cases </div>
+    <div class="total-result recovered total-last-item">${""}</div>
+    <div class="total-tittle total-regular">Global Closed Cases </div>
+    <div class="total-result">${""}</div>
+    <div class="total-tittle total-regular">Average Closed Cases </div>
+    <div class="total-result">${""}</div>
+    `
+    document.querySelector('.data-header').innerHTML = globalHeader
+    document.querySelector('.data-col-1').innerHTML = global
+    document.querySelector('.data-col-2').innerHTML = global2
+
+};
+
+
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

@@ -1,6 +1,7 @@
 window.onload = () => {
     makeCountryCasesTable();
     loadGlobalCases();
+    runLastTenDaysStatistics();
 }
 
 async function makeCountryCasesTable(countryCode) {
@@ -44,10 +45,10 @@ async function makeCountryCasesTable(countryCode) {
             <tr class="country-list">
               <td class="table-data">${index +1}</th>
               <td class="table-data table-country-name">${countryName}</th>
-              <td class="table-data">${confirmedCases}</th>
-              <td class="table-data">${activeCases}</th>
-              <td class="table-data">${deathCases}</th>
-              <td class="table-data">${recoveredCases}</th>
+              <td class="table-data">${numberWithCommas(confirmedCases)}</th>
+              <td class="table-data">${numberWithCommas(activeCases)}</th>
+              <td class="table-data">${numberWithCommas(deathCases)}</th>
+              <td class="table-data">${numberWithCommas(recoveredCases)}</th>
               <td class="table-data">${percentageActives}</th>
               <td class="table-data">${percentageDeaths}</th>
               <td class="table-data">${percentageRecovered}</th>
@@ -90,20 +91,25 @@ async function loadGlobalCases(){
 
     let globalCases = await consultGlobalStatistics();
     var globalHeader = `
-    <h2 style="padding-bottom: 10px;">${getFullDate()} - Total infected countries: ${globalCases.infected_countries}</h1>
+    <div class="total-tittle total-regular">Total infected countries</div>
+    <div class="total-result" style="font-size: 80px;">${globalCases.infected_countries}</div>
     `
     var global = `
-    <h4 style="padding-bottom: 10px;">Total Confirmed Cases: ${globalCases.total.confirmed}</h3>
-    <h4 style="padding-bottom: 10px;">Total Active Cases:  ${globalCases.total.actives}</h3>
-    <h4 style="padding-bottom: 10px;">Total Death Cases:  ${globalCases.total.deaths}</h3>
-    <h4>Total Recovered Cases:  ${globalCases.total.recovered}</h3>
+    <div class="total-tittle total-regular">Global Confirmed Cases</div>
+    <div class="total-result">${numberWithCommas(globalCases.total.confirmed)}</div>
+    <div class="total-tittle total-regular">Global Active Cases</div>
+    <div class="total-result">${numberWithCommas(globalCases.total.actives)}</div>
+    <div class="total-tittle total-regular">Global Closed Cases<div class="total-minor-tittle">(recovered cases + deaths cases)</div></div>
+    <div class="total-result total-minor-result">${numberWithCommas(globalCases.total.closed_cases)}</div>
     `;
 
     var global2 = `
-    <h4 style="padding-bottom: 10px;">Total Closed Cases:  ${globalCases.total.closed_cases}</h3>
-    <h4 style="padding-bottom: 10px;">Average Death Cases: ${globalCases.percentage.deaths}</h3>
-    <h4 style="padding-bottom: 10px;">Average Closed Cases: ${globalCases.percentage.closed_cases}</h3>
-    <h4>Mortality Rate: ${globalCases.percentage.mortality_rate}</h3>
+    <div class="total-tittle death-tittle">Global Death Cases</div>
+    <div class="total-result death">${numberWithCommas(globalCases.total.deaths)} <a class="total-minor">(${globalCases.percentage.deaths})</a></div>
+    <div class="total-tittle recovered-tittle">Global Recovered Cases</div>
+    <div class="total-result recovered">${numberWithCommas(globalCases.total.recovered)} <a class="total-minor">(${globalCases.percentage.recovered})</a></div>
+    <div class="total-tittle death-tittle" >Mortality Rate<div class="total-minor-tittle">(deaths cases / closed cases)</div></div>
+    <div class="total-result death total-minor-result">${globalCases.percentage.mortality_rate}</div>
     `
     document.querySelector('.data-header').innerHTML = globalHeader
     document.querySelector('.data-col-1').innerHTML = global
@@ -111,19 +117,22 @@ async function loadGlobalCases(){
 
 };
 
-function getFullDate(day, month, year) {
+function getFullDate(day, month, year, separator) {
     let d = new Date();
     year = (year) ? year.toString() : d.getFullYear().toString();
     month = (month) ? getMonth(month) : getMonth();
     day = (day) ? getDay(day) : getDay();
+    separator = (separator) ? separator : ".";
 
 
 
-    return year+"."+month+"."+day;
+    return year+separator+month+separator+day;
 }
 
 
-
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 async function consultCasesToday(){
     let apiUrl = 'https://covid-api-info.herokuapp.com/api/covid/cases'//'https://covid-api-info.herokuapp.com/api/covid/cases/';
@@ -137,6 +146,26 @@ async function consultCasesToday(){
         return {};
     });
     return countries;
+}
+
+async function runLastTenDaysStatistics(){
+    let statistics;
+    for(let i = 0; i < 10; i++){
+        let date = subtractDay(i);
+        let apiUrl = `https://covid-api-info.herokuapp.com/api/covid/cases/basic_statistics/${date}`//'https://covid-api-info.herokuapp.com/api/covid/cases/';
+        statistics = await fetch(apiUrl).then(response => {
+            return response.json();
+        }).then(data => {
+            console.log(data);
+            return data;
+        }).catch(err => {
+            console.log("Hubo un error: " + err);
+            return {};
+        });
+    }
+    
+    console.log("ok");
+    return "ok";
 }
 
 async function consultGlobalStatistics(){
@@ -186,4 +215,16 @@ async function searchCountry() {
     }else{
         makeCountryCasesTable();    
     }
+}
+
+
+
+function subtractDay(amount){
+
+    let d = new Date();
+    d.setDate(d.getDate() - amount )
+
+    let date = getFullDate(d.getDate(), d.getMonth()+1, d.getFullYear(), "/");
+    
+    return date;
 }
