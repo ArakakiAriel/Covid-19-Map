@@ -22,6 +22,245 @@ function initMap() {
     center: losAngeles,
     zoom: 3,
     mapTypeId: 'roadmap',
+    styles: [
+      {
+          "featureType": "administrative",
+          "elementType": "geometry",
+          "stylers": [
+              {
+                  "visibility": "off"
+              },
+              {
+                  "color": "#a3b1b2"
+              }
+          ]
+      },
+      {
+          "featureType": "administrative",
+          "elementType": "labels",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "administrative",
+          "elementType": "labels.text.fill",
+          "stylers": [
+              {
+                  "color": "#444444"
+              }
+          ]
+      },
+      {
+          "featureType": "administrative.country",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "on"
+              }
+          ]
+      },
+      {
+          "featureType": "administrative.country",
+          "elementType": "geometry.stroke",
+          "stylers": [
+              {
+                  "visibility": "on"
+              },
+              {
+                  "color": "#95a0a3"
+              },
+              {
+                  "weight": "1.00"
+              }
+          ]
+      },
+      {
+          "featureType": "administrative.province",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "administrative.locality",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "administrative.neighborhood",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "simplified"
+              },
+              {
+                  "color": "#a3b1b2"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape",
+          "elementType": "geometry",
+          "stylers": [
+              {
+                  "visibility": "on"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape.man_made",
+          "elementType": "geometry",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape.man_made",
+          "elementType": "labels",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape.natural",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "on"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape.natural",
+          "elementType": "geometry",
+          "stylers": [
+              {
+                  "visibility": "on"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape.natural",
+          "elementType": "geometry.stroke",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape.natural",
+          "elementType": "labels",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape.natural.landcover",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape.natural.terrain",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "poi",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "road",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "saturation": -100
+              },
+              {
+                  "lightness": 45
+              },
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "road.highway",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "road.arterial",
+          "elementType": "labels.icon",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "transit",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "water",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "color": "#b5c1c1"
+              },
+              {
+                  "visibility": "on"
+              }
+          ]
+      }
+  ]
   });
   infoWindow = new google.maps.InfoWindow();
   showStoresMarkers();
@@ -107,7 +346,7 @@ async function showStoresMarkers(countryCode) {
     var phoneNumber = "SomePhoneNumber";
     var address = "SomeAdress";
     bounds.extend(latlng)
-      createMarker(name, index + 1, latlng);
+      createMarker(name, index + 1, latlng, countryCases[index]);
   }
 }
 
@@ -125,20 +364,36 @@ async function showGrowth(country) {
   return countries[0];
 }
 
-function createMarker(name, index, latlng) {
+function createMarker(name, index, latlng, countryData) {
 
 
   var html = "<b>" + name + "</b> <br/> " + "some-status" + " <hr/> <br/>" + "someAdress";
+  let sizeOfMarker = 100;
+  if(index > 60){
+    sizeOfMarker = 40;
+  }else{
+    sizeOfMarker = sizeOfMarker - index;
+  }
+  var image = {
+    url: 'https://i.imgur.com/KjgN4sp.png',
+    // This marker is 20 pixels wide by 32 pixels high.
+    scaledSize: new google.maps.Size(sizeOfMarker, sizeOfMarker),
+    // The origin for this image is (0, 0).
+    origin: new google.maps.Point(0, 0),
+    // The anchor for this image is the base of the flagpole at (0, 32).
+    anchor: new google.maps.Point(10, 0)
+  };
   var marker = new google.maps.Marker({
     map: map,
     position: latlng,
-    icon: {
-      url: "https://i.imgur.com/fa6vgMx.png"
-    },
-    label: index.toString()
+    icon: image,
+    label: countryData.total.confirmed.toString(),
   });
   google.maps.event.addListener(marker, 'click', async function () {
     console.log(name);
+
+    map.setCenter(marker.position);
+    map.setZoom(7);
     let countryGrowth = await showGrowth(name);
     console.log(countryGrowth);
     var aux = `
@@ -152,6 +407,9 @@ function createMarker(name, index, latlng) {
                       </div>      
                       <div class="marker-store-status">
                       Days since previous update: ${(countryGrowth.days_since_previous_update)}
+                      </div>   
+                      <div class="marker-store-status">
+                      Confirmed Cases Ranking: ${(index)}
                       </div>      
                   </div>
                   <div class= "marker-store-info">

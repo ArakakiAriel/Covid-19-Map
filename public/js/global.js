@@ -1,10 +1,12 @@
 window.onload = () => {
+    makeGlobalCasesTable();
+    loadAverageStatistics();
 }
 
-async function makeGlobalCasesTable(countryCode) {
+async function makeGlobalCasesTable() {
 
-    let countries = await consultCasesToday();
-    let countryName;
+    let date;
+    let infectedCountries;
     let confirmedCases;
     let activeCases;
     let deathCases;
@@ -12,176 +14,130 @@ async function makeGlobalCasesTable(countryCode) {
     let percentageActives;
     let percentageDeaths;
     let percentageRecovered;
-    //stores.map(function(store,index))
-    var countriesHtml = `<tr>
-    <th rowspan = "2" class="table-tittle" "></th>
-    <th rowspan = "2" class="table-tittle" ">Country</th>
-    <th colspan="4" class="table-tittle" ">Total Of</th>
-    <th colspan="3" class="table-tittle" ">Percentage Of</th>
-    <tr>
-      <th class="table-tittle" >Confirmed</th>
-      <th class="table-tittle" ">Actives</th>
-      <th class="table-tittle" ">Deaths</th>
-      <th class="table-tittle" ">Recovered</th>
-      <th class="table-tittle" ">Actives</th>
-      <th class="table-tittle" ">Deaths</th>
-      <th class="table-tittle" ">Recovered</th>
-    </tr>`;
-    if(!countryCode){
+    let newConfirmed;
+    let newDeaths;
+    let newRecovered;
+    let growthFactor;
+    var statisticsHtml = `<tr>
+    <th rowspan = "2" class="country-table-tittle">Updated_Date</th>
+    <th rowspan = "2" class="country-table-tittle">Infected Countries</th>
 
-        for (let index = 0; index < countries.length; index++) {
-            countryName = countries[index].country;
-            confirmedCases = countries[index].total.confirmed;
-            activeCases = countries[index].total.actives;
-            deathCases = countries[index].total.deaths;
-            recoveredCases = countries[index].total.recovered;
-            percentageActives = countries[index].percentage.actives;
-            percentageDeaths = countries[index].percentage.deaths;
-            percentageRecovered = countries[index].percentage.recovered;
-            countriesHtml += `
+
+    <th colspan="4" class="country-table-tittle">Total Of</th>
+    <th colspan="3" class="country-table-tittle">Percentage Of</th>
+    <th colspan="4" class="country-table-tittle">Growth</th>
+  </tr>
+  <tr>
+    <th class="country-table-tittle">Confirmed</th>
+    <th class="country-table-tittle">Actives</th>
+    <th class="country-table-tittle">Deaths</th>
+    <th class="country-table-tittle">Recovered</th>
+
+    <th class="country-table-tittle">Actives</th>
+    <th class="country-table-tittle">Deaths</th>
+    <th class="country-table-tittle">Recovered</th>
+
+    <th class="country-table-tittle">New Confirmed</th>
+    <th class="country-table-tittle">New Deaths</th>
+    <th class="country-table-tittle">New Recovered</th>
+    <th class="country-table-tittle">Growth Factor</th>
+  </tr>`;
+
+  let redTD = `<td style="color: red; background-color: #efdede">`
+  let greenTD = `<td style="color: green; background-color: #d8e6da">`
+
+    let statistics = await runLastDaysGlobalStatistics();
+
+        for (let index = 0; index < statistics.length - 1; index++) {
+            date = statistics[index].date;
+            infectedCountries = statistics[index].infected_countries;
+            confirmedCases = statistics[index].total.confirmed;
+            activeCases = statistics[index].total.actives;
+            deathCases = statistics[index].total.deaths;
+            recoveredCases = statistics[index].total.recovered;
+            percentageActives = statistics[index].percentage.actives;
+            percentageDeaths = statistics[index].percentage.deaths;
+            percentageRecovered = statistics[index].percentage.recovered;
+            newConfirmed = statistics[index].total.confirmed - statistics[index+1].total.confirmed;
+            newDeaths = statistics[index].total.deaths - statistics[index+1].total.deaths;
+            newRecovered = statistics[index].total.recovered - statistics[index+1].total.recovered;
+            growthFactor = (Math.log(newConfirmed) / Math.log(statistics[index+1].total.actives)).toFixed(2),
+            statisticsHtml += `
             <tr class="country-list">
-              <td class="table-data">${index +1}</th>
-              <td class="table-data table-country-name">${countryName}</th>
-              <td class="table-data">${confirmedCases}</th>
-              <td class="table-data">${activeCases}</th>
-              <td class="table-data">${deathCases}</th>
-              <td class="table-data">${recoveredCases}</th>
-              <td class="table-data">${percentageActives}</th>
-              <td class="table-data">${percentageDeaths}</th>
-              <td class="table-data">${percentageRecovered}</th>
-            </tr>
-                `
+              <td class="table-data">${date}</th>
+              <td class="table-data table-data-percentages">${infectedCountries}</th>
+              <td class="table-data">${numberWithCommas(confirmedCases)}</th>
+              <td class="table-data">${numberWithCommas(activeCases)}</th>
+              <td class="table-data">${numberWithCommas(deathCases)}</th>
+              <td class="table-data">${numberWithCommas(recoveredCases)}</th>
+              <td class="table-data table-data-percentages">${percentageActives}</th>
+              <td class="table-data table-data-percentages">${percentageDeaths}</th>
+              <td class="table-data table-data-percentages">${percentageRecovered}</th>
+              `
+
+            if(newConfirmed > 0){
+                statisticsHtml += redTD + "+" + newConfirmed + "</td>";
+            }else{
+                statisticsHtml += greenTD + newConfirmed + "</td>";
+            }
+            if(newDeaths > 0){
+                statisticsHtml += redTD + "+" + newDeaths + "</td>";
+            }else{
+                statisticsHtml += greenTD + newDeaths + "</td>";
+            }
+            if(newRecovered > 0){
+                statisticsHtml += greenTD + "+" + newRecovered + "</td>"
+            }else{
+                statisticsHtml += `<td style=" background-color: #e6e6d8">` + newRecovered + "</td>"
+            }
+            statisticsHtml += `
+            <td class="table-data">${growthFactor}</td>
+            </tr>`
     
         }
-    }else{
-        for (let index = 0; index < countries.length; index++) {
-            if(countries[index].country == countryCode){
-                countryName = countries[index].country;
-                confirmedCases = countries[index].total.confirmed;
-                activeCases = countries[index].total.actives;
-                deathCases = countries[index].total.deaths;
-                recoveredCases = countries[index].total.recovered;
-                percentageActives = countries[index].percentage.actives;
-                percentageDeaths = countries[index].percentage.deaths;
-                percentageRecovered = countries[index].percentage.recovered;
-                countriesHtml += `
-                <tr class="country-list">
-                <td class="table-data">${index +1}</th>
-                <td class="table-data table-country-name">${countryName}</th>
-                <td class="table-data">${confirmedCases}</th>
-                <td class="table-data">${activeCases}</th>
-                <td class="table-data">${deathCases}</th>
-                <td class="table-data">${recoveredCases}</th>
-                <td class="table-data">${percentageActives}</th>
-                <td class="table-data">${percentageDeaths}</th>
-                <td class="table-data">${percentageRecovered}</th>
-                </tr>
-                    `
-            }
-        }
-    }
-    document.querySelector('.my-table-container-s').innerHTML = countriesHtml
+    
+    document.querySelector('.my-table-container-s').innerHTML = statisticsHtml
 }
 
-async function loadGlobalCases(){
+async function loadAverageStatistics(){
 
-
-    let globalCases = await consultGlobalStatistics();
+    let statistics = await runLastDaysGlobalStatistics();
+    let statisticsLength = statistics.length - 1;
     var globalHeader = `
-    <h2 style="padding-bottom: 10px;">${getFullDate()} - Total infected countries: ${globalCases.infected_countries}</h2>
-    `
-    var global = `
-    <div style="padding-bottom: 10px;">Total Confirmed Cases: ${globalCases.total.confirmed}</h4>
-    <div style="padding-bottom: 10px;">Total Active Cases:  ${globalCases.total.actives}</h4>
-    <div style="padding-bottom: 10px;">Total Death Cases:  ${globalCases.total.deaths}</h4>
-    <h4>Total Recovered Cases:  ${globalCases.total.recovered}</h4>
+    <div class="total-header total-regular">Global Statistics Last ${statisticsLength} Days</div>
     `;
 
-    var global2 = `
-    <div style="padding-bottom: 10px;">Total Closed Cases:  ${globalCases.total.closed_cases}</h4>
-    <div style="padding-bottom: 10px;">Average Death Cases: ${globalCases.percentage.deaths}</h4>
-    <div style="padding-bottom: 10px;">Average Closed Cases: ${globalCases.percentage.closed_cases}</h4>
-    <h4>Mortality Rate: ${globalCases.percentage.mortality_rate}</h4>
-    `
+    let totalNewConfirmed = 0;
+    let totalNewDeaths = 0;
+    let totalNewRecovered = 0;
+    for (let index = 0; index < statisticsLength; index++) {
+        totalNewConfirmed += statistics[index].total.confirmed - statistics[index+1].total.confirmed;
+        totalNewDeaths += statistics[index].total.deaths - statistics[index+1].total.deaths;
+        totalNewRecovered += statistics[index].total.recovered - statistics[index+1].total.recovered;
+    }
+    console.log(totalNewConfirmed);
+    console.log(totalNewDeaths);
+    console.log(totalNewRecovered);
+    //<div class="total-result" style="font-size: 80px;">${globalCases.infected_countries}</div>
+    var global = `
+    <div class="total-tittle death-tittle">Average New Confirmed per Day</div>
+    <div class="total-result death">+${numberWithCommas(totalNewConfirmed/statisticsLength)}</div>
+    <div class="total-tittle death-tittle">Average New Deaths per Day</div>
+    <div class="total-result death">+${numberWithCommas(totalNewDeaths/statisticsLength)}</div>
+    <div class="total-tittle recovered-tittle">Average New Recovered per Day</div>
+    <div class="total-result total-minor-result recovered">+${numberWithCommas(totalNewRecovered/statisticsLength)}</div>
+    `;
+
+    var global2 = ""//`
+    // <div class="total-tittle death-tittle">Global Death Cases</div>
+    // <div class="total-result death">${numberWithCommas(globalCases.total.deaths)} <a class="total-minor">(${globalCases.percentage.deaths})</a></div>
+    // <div class="total-tittle recovered-tittle">Global Recovered Cases</div>
+    // <div class="total-result recovered">${numberWithCommas(globalCases.total.recovered)} <a class="total-minor">(${globalCases.percentage.recovered})</a></div>
+    // <div class="total-tittle death-tittle" >Mortality Rate<div class="total-minor-tittle">(deaths cases / closed cases)</div></div>
+    // <div class="total-result death total-minor-result">${globalCases.percentage.mortality_rate}</div>
+    // `
     document.querySelector('.data-header').innerHTML = globalHeader
     document.querySelector('.data-col-1').innerHTML = global
     document.querySelector('.data-col-2').innerHTML = global2
 
 };
-
-function getFullDate(day, month, year) {
-    let d = new Date();
-    year = (year) ? year.toString() : d.getFullYear().toString();
-    month = (month) ? getMonth(month) : getMonth();
-    day = (day) ? getDay(day) : getDay();
-
-
-
-    return year+"."+month+"."+day;
-}
-
-
-
-
-async function consultCasesToday(){
-    let apiUrl = 'https://covid-api-info.herokuapp.com/api/covid/cases'//'https://covid-api-info.herokuapp.com/api/covid/cases/';
-    let countries = await fetch(apiUrl).then(response => {
-        return response.json();
-    }).then(data => {
-        console.log(data.length);
-        return data;
-    }).catch(err => {
-        console.log("Hubo un error: " + err);
-        return {};
-    });
-    return countries;
-}
-
-async function consultGlobalStatistics(){
-    let apiUrl = 'https://covid-api-info.herokuapp.com/api/covid/cases/basic_statistics'//'https://covid-api-info.herokuapp.com/api/covid/cases/';
-    let statistics = await fetch(apiUrl).then(response => {
-        return response.json();
-    }).then(data => {
-        return data;
-    }).catch(err => {
-        console.log("Hubo un error: " + err);
-        return {};
-    });
-    return statistics;
-}
-
-function getMonth(month) {
-    if(!month){
-        let d = new Date();
-        month = d.getMonth() + 1;
-    }
-    if (month < 10) {
-        month = "0" + month;
-    }else{
-        month = month.toString();
-    }
-    return month;
-}
-
-function getDay(day) {
-    if(!day){
-        let d = new Date();
-        day = d.getDate();
-    }
-    if (day < 10) {
-        day = "0" + day;
-    }else{
-        day = day.toString();
-    }
-    return day;
-}
-
-
-async function searchCountry() {
-    let countryName = await document.getElementById("country-name-input").value;
-    if(countryName){
-        makeCountryCasesTable(countryName.toUpperCase());    
-    }else{
-        makeCountryCasesTable();    
-    }
-}

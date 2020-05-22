@@ -1,7 +1,7 @@
 window.onload = () => {
     makeCountryCasesTable();
     loadGlobalCases();
-    runLastTenDaysStatistics();
+    runLastDaysGlobalStatistics();
 }
 
 async function makeCountryCasesTable(countryCode) {
@@ -91,7 +91,7 @@ async function loadGlobalCases(){
 
     let globalCases = await consultGlobalStatistics();
     var globalHeader = `
-    <div class="total-tittle total-regular">Total infected countries</div>
+    <div class="total-header total-regular">Total infected countries</div>
     <div class="total-result" style="font-size: 80px;">${globalCases.infected_countries}</div>
     `
     var global = `
@@ -117,95 +117,9 @@ async function loadGlobalCases(){
 
 };
 
-function getFullDate(day, month, year, separator) {
-    let d = new Date();
-    year = (year) ? year.toString() : d.getFullYear().toString();
-    month = (month) ? getMonth(month) : getMonth();
-    day = (day) ? getDay(day) : getDay();
-    separator = (separator) ? separator : ".";
 
 
 
-    return year+separator+month+separator+day;
-}
-
-
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-async function consultCasesToday(){
-    let apiUrl = 'https://covid-api-info.herokuapp.com/api/covid/cases'//'https://covid-api-info.herokuapp.com/api/covid/cases/';
-    let countries = await fetch(apiUrl).then(response => {
-        return response.json();
-    }).then(data => {
-        console.log(data.length);
-        return data;
-    }).catch(err => {
-        console.log("Hubo un error: " + err);
-        return {};
-    });
-    return countries;
-}
-
-async function runLastTenDaysStatistics(){
-    let statistics;
-    for(let i = 0; i < 10; i++){
-        let date = subtractDay(i);
-        let apiUrl = `https://covid-api-info.herokuapp.com/api/covid/cases/basic_statistics/${date}`//'https://covid-api-info.herokuapp.com/api/covid/cases/';
-        statistics = await fetch(apiUrl).then(response => {
-            return response.json();
-        }).then(data => {
-            console.log(data);
-            return data;
-        }).catch(err => {
-            console.log("Hubo un error: " + err);
-            return {};
-        });
-    }
-    
-    console.log("ok");
-    return "ok";
-}
-
-async function consultGlobalStatistics(){
-    let apiUrl = 'https://covid-api-info.herokuapp.com/api/covid/cases/basic_statistics'//'https://covid-api-info.herokuapp.com/api/covid/cases/';
-    let statistics = await fetch(apiUrl).then(response => {
-        return response.json();
-    }).then(data => {
-        return data;
-    }).catch(err => {
-        console.log("Hubo un error: " + err);
-        return {};
-    });
-    return statistics;
-}
-
-function getMonth(month) {
-    if(!month){
-        let d = new Date();
-        month = d.getMonth() + 1;
-    }
-    if (month < 10) {
-        month = "0" + month;
-    }else{
-        month = month.toString();
-    }
-    return month;
-}
-
-function getDay(day) {
-    if(!day){
-        let d = new Date();
-        day = d.getDate();
-    }
-    if (day < 10) {
-        day = "0" + day;
-    }else{
-        day = day.toString();
-    }
-    return day;
-}
 
 
 async function searchCountry() {
@@ -217,14 +131,3 @@ async function searchCountry() {
     }
 }
 
-
-
-function subtractDay(amount){
-
-    let d = new Date();
-    d.setDate(d.getDate() - amount )
-
-    let date = getFullDate(d.getDate(), d.getMonth()+1, d.getFullYear(), "/");
-    
-    return date;
-}
