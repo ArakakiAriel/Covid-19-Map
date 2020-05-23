@@ -17,10 +17,12 @@ function searchCountries() {
 }
 
 function initMap() {
-  var losAngeles = { lat: 34.063380, lng: -118.358080 };
+  var losAngeles = { lat: -0.858977, lng: -28.016151 };
   map = new google.maps.Map(document.getElementById('map'), { //document.getElementById indicates where it's going to live the "map"
     center: losAngeles,
-    zoom: 3,
+    zoom: 4,
+    mapTypeControl: false,
+    minZoom: 3,
     mapTypeId: 'roadmap',
     styles: [
       {
@@ -299,16 +301,16 @@ async function displayStores(countryCode) {
                           <div class="store-info-container">
                               <div class="store-address">
                                   <span> <b>${countryName} </b></span> 
-                                  <span> Confirmed cases: <b>${confirmedCases}</b> </span>
+                                  <span> Confirmed cases: <b>${numberWithCommas(confirmedCases)}</b> </span>
                               </div>
                               <div class="store-phone-number">
-                              ${"Active cases: " + countryCases[index].total.actives}
+                              ${"Active cases: " + numberWithCommas(countryCases[index].total.actives)}
                               </div>   
                               <div class="store-phone-number">
-                              ${"Recovered cases: " + countryCases[index].total.recovered}
+                              ${"Recovered cases: " + numberWithCommas(countryCases[index].total.recovered)}
                               </div>   
                               <div class="store-phone-number">
-                              ${"Death cases: " + countryCases[index].total.deaths}
+                              ${"Death cases: " + numberWithCommas(countryCases[index].total.deaths)}
                               </div>      
                           </div>
                           <div class= "store-number-container">
@@ -328,7 +330,7 @@ function setOnClickListener(index) {
   google.maps.event.trigger(markers[index], 'click');
   var latLng = markers[index].getPosition();
   map.setCenter(latLng);
-  map.setZoom(7);
+  map.setZoom(6);
 }
 
 async function showStoresMarkers(countryCode) {
@@ -341,10 +343,7 @@ async function showStoresMarkers(countryCode) {
       countryCases[index].coordinates.latitude,
       countryCases[index].coordinates.longitude);
 
-    var status = "Some status";
     var name = countryCases[index].country;
-    var phoneNumber = "SomePhoneNumber";
-    var address = "SomeAdress";
     bounds.extend(latlng)
       createMarker(name, index + 1, latlng, countryCases[index]);
   }
@@ -358,8 +357,8 @@ async function showGrowth(country) {
     console.log(data.length);
     return data;
   }).catch(err => {
-    return {};
     console.log("Hubo un error: " + err);
+    return {};
   });
   return countries[0];
 }
@@ -371,6 +370,12 @@ function createMarker(name, index, latlng, countryData) {
   let sizeOfMarker = 100;
   if(index > 60){
     sizeOfMarker = 40;
+    if(countryData.total.confirmed < 100){
+      sizeOfMarker = 30;
+    }
+    if(countryData.total.confirmed < 10){
+      sizeOfMarker = 20;
+    }
   }else{
     sizeOfMarker = sizeOfMarker - index;
   }
@@ -387,7 +392,7 @@ function createMarker(name, index, latlng, countryData) {
     map: map,
     position: latlng,
     icon: image,
-    label: countryData.total.confirmed.toString(),
+    label: numberWithCommas(countryData.total.confirmed),
   });
   google.maps.event.addListener(marker, 'click', async function () {
     console.log(name);
@@ -403,28 +408,26 @@ function createMarker(name, index, latlng, countryData) {
                           <label style="font-size: large;"><b>${name}</b></label>
                       </div>
                       <div class="marker-store-status">
-                      Last updated date: ${countryGrowth.date}
-                      </div>      
-                      <div class="marker-store-status">
-                      Days since previous update: ${(countryGrowth.days_since_previous_update)}
-                      </div>   
-                      <div class="marker-store-status">
                       Confirmed Cases Ranking: ${(index)}
                       </div>      
+                      <div class="marker-store-status">
+                      Last updated date: ${countryGrowth.date}
+                      </div>      
+                      
                   </div>
                   <div class= "marker-store-info">
                       <div class="marker-info">
                           <div class="marker-store-address">
-                          <u>New Confirmed Cases</u>: <b>+${countryGrowth.new_confirmed_cases}</b>
+                          <u>New Confirmed Cases</u>: <b>+${numberWithCommas(countryGrowth.new_confirmed_cases)}</b>
                           </div>
                           <div class="marker-store-phone">
-                          <u>New Active Cases</u>: <b>+${countryGrowth.new_active_cases}</b>
+                          <u>New Active Cases</u>: <b>+${numberWithCommas(countryGrowth.new_active_cases)}</b>
                           </div>
                           <div class="marker-store-phone" style="color:red">
-                          <u>New Death Cases</u>: <b>+${countryGrowth.new_death_cases}</b>
+                          <u>New Death Cases</u>: <b>+${numberWithCommas(countryGrowth.new_death_cases)}</b>
                           </div>
                           <div class="marker-store-phone" style="color:green">
-                          <u>New Recovered Cases</u>: <b>+${countryGrowth.new_recovered_cases}</b>
+                          <u>New Recovered Cases</u>: <b>+${numberWithCommas(countryGrowth.new_recovered_cases)}</b>
                           </div>
                           <div class="marker-store-phone">
                           <u>Growth Factor</u>: <b>${countryGrowth.growth_factor}</b>

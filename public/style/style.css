@@ -66,6 +66,10 @@ body {
 
 }
 
+.back-button {
+    position: absolute; /* se solapea en el mismo mapa*/
+    z-index: 100; /*adds a priority of layer*/
+}
 
 
 .store-list {
