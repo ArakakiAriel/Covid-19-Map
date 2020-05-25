@@ -8,11 +8,11 @@ var infoWindow;
 
 function searchCountries() {
   let countryCode = document.getElementById("country-code-input").value;
-  displayStores(countryCode);
+  displayStores(countryCode.toUpperCase());
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
   }
-  showStoresMarkers(countryCode)
+  showStoresMarkers();
 
 }
 
@@ -33,7 +33,7 @@ function initMap() {
                   "visibility": "off"
               },
               {
-                  "color": "#a3b1b2"
+                  "color": "#356671"
               }
           ]
       },
@@ -72,7 +72,7 @@ function initMap() {
                   "visibility": "on"
               },
               {
-                  "color": "#95a0a3"
+                  "color": "#143846"
               },
               {
                   "weight": "1.00"
@@ -114,7 +114,7 @@ function initMap() {
                   "visibility": "simplified"
               },
               {
-                  "color": "#a3b1b2"
+                  "color": "#356671"
               }
           ]
       },
@@ -255,7 +255,7 @@ function initMap() {
           "elementType": "all",
           "stylers": [
               {
-                  "color": "#b5c1c1"
+                  "color": "#143846"
               },
               {
                   "visibility": "on"
@@ -284,8 +284,8 @@ async function consultCasesToday() {
 
   return countryCases;
 }
-
-async function displayStores(countryCode) {
+//If flag is TRUE then it only search for the entire name.
+async function displayStores(countryCode, flag) {
   //stores.map(function(store,index))
   var storesHtml = '';
   let counter = 1;
@@ -294,36 +294,77 @@ async function displayStores(countryCode) {
   for (let index = 0; index < countryCases.length; index++) {
     let countryName = countryCases[index].country;//countries[index].addressLines;
     let confirmedCases = countryCases[index].total.confirmed;//countries[index].phoneNumber;
-    if (countryName.includes(countryCode) || countryCode == null) {
-      storesHtml += `
-                  <div class="store-container" onclick="setOnClickListener(${index});" >
-                      <div class="store-container-background">
-                          <div class="store-info-container">
-                              <div class="store-address">
-                                  <span> <b>${countryName} </b></span> 
-                                  <span> Confirmed cases: <b>${numberWithCommas(confirmedCases)}</b> </span>
-                              </div>
-                              <div class="store-phone-number">
-                              ${"Active cases: " + numberWithCommas(countryCases[index].total.actives)}
-                              </div>   
-                              <div class="store-phone-number">
-                              ${"Recovered cases: " + numberWithCommas(countryCases[index].total.recovered)}
-                              </div>   
-                              <div class="store-phone-number">
-                              ${"Death cases: " + numberWithCommas(countryCases[index].total.deaths)}
-                              </div>      
-                          </div>
-                          <div class= "store-number-container">
-                              <div class="store-number">
-                                  ${index + 1}
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-          `
+    if(flag){
+      if (countryName == countryCode || countryCode == null) {
+        storesHtml += `
+                    <div class="store-container" onclick="setOnClickListener(${index});" >
+                        <div class="store-container-background">
+                            <div class="store-info-container">
+                                <div class="store-address">
+                                    <span> <b>${countryName} </b></span> 
+                                    <span> Confirmed cases: <b>${numberWithCommas(confirmedCases)}</b> </span>
+                                </div>
+                                <div class="store-phone-number neutral-tittle">
+                                ${"Active cases: " + numberWithCommas(countryCases[index].total.actives)}
+                                </div>   
+                                <div class="store-phone-number recovered-tittle" >
+                                ${"Recovered cases: " + numberWithCommas(countryCases[index].total.recovered)}
+                                </div>   
+                                <div class="store-phone-number death-tittle">
+                                ${"Death cases: " + numberWithCommas(countryCases[index].total.deaths)}
+                                </div>      
+                            </div>
+                            <div class= "store-number-container">
+                                <div class="store-number">
+                                    ${index + 1}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            `
+      }
+    }else{
+      if (countryName.includes(countryCode) || countryCode == null) {
+        storesHtml += `
+                    <div class="store-container" onclick="setOnClickListener(${index});" >
+                        <div class="store-container-background">
+                            <div class="store-info-container">
+                                <div class="store-address">
+                                    <span> <b>${countryName} </b></span> 
+                                    <span> Confirmed cases: <b>${numberWithCommas(confirmedCases)}</b> </span>
+                                </div>
+                                <div class="store-phone-number neutral-tittle">
+                                ${"Active cases: " + numberWithCommas(countryCases[index].total.actives)}
+                                </div>   
+                                <div class="store-phone-number recovered-tittle" >
+                                ${"Recovered cases: " + numberWithCommas(countryCases[index].total.recovered)}
+                                </div>   
+                                <div class="store-phone-number death-tittle">
+                                ${"Death cases: " + numberWithCommas(countryCases[index].total.deaths)}
+                                </div>      
+                            </div>
+                            <div class= "store-number-container">
+                                <div class="store-number">
+                                    ${index + 1}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            `
+      }
     }
-    document.querySelector('.store-list').innerHTML = storesHtml
+
+    
+    
   }
+  storesHtml += ` 
+  <div class="display-container"  onclick="displayStores();" >
+    <div class="display-all-onclick-background">
+      <div class="display-all-info">Display all countries</div>
+    </div>
+  </div>`
+  
+  document.querySelector('.store-list').innerHTML = storesHtml
 }
 
 function setOnClickListener(index) {
@@ -368,19 +409,23 @@ function createMarker(name, index, latlng, countryData) {
 
   var html = "<b>" + name + "</b> <br/> " + "some-status" + " <hr/> <br/>" + "someAdress";
   let sizeOfMarker = 100;
-  if(index > 60){
-    sizeOfMarker = 40;
-    if(countryData.total.confirmed < 100){
-      sizeOfMarker = 30;
-    }
     if(countryData.total.confirmed < 10){
       sizeOfMarker = 20;
+    }else if(countryData.total.confirmed < 100){
+      sizeOfMarker = 30;
+    }else if(countryData.total.confirmed < 1000){
+      sizeOfMarker = 40;
+    }else if(countryData.total.confirmed < 10000){
+      sizeOfMarker = 50;
+    }else if(countryData.total.confirmed < 10000){
+      sizeOfMarker = 60;
+    }else if(countryData.total.confirmed < 1000000){
+      sizeOfMarker = 70;
+    }else{
+      sizeOfMarker = 120;
     }
-  }else{
-    sizeOfMarker = sizeOfMarker - index;
-  }
   var image = {
-    url: 'https://i.imgur.com/KjgN4sp.png',
+    url: 'https://i.imgur.com/VpKBnQk.png',
     // This marker is 20 pixels wide by 32 pixels high.
     scaledSize: new google.maps.Size(sizeOfMarker, sizeOfMarker),
     // The origin for this image is (0, 0).
@@ -398,8 +443,9 @@ function createMarker(name, index, latlng, countryData) {
     console.log(name);
 
     map.setCenter(marker.position);
-    map.setZoom(7);
+    map.setZoom(5);
     let countryGrowth = await showGrowth(name);
+    displayStores(name, true);
     console.log(countryGrowth);
     var aux = `
               <div class="marker-container">
@@ -419,9 +465,6 @@ function createMarker(name, index, latlng, countryData) {
                       <div class="marker-info">
                           <div class="marker-store-address">
                           <u>New Confirmed Cases</u>: <b>+${numberWithCommas(countryGrowth.new_confirmed_cases)}</b>
-                          </div>
-                          <div class="marker-store-phone">
-                          <u>New Active Cases</u>: <b>+${numberWithCommas(countryGrowth.new_active_cases)}</b>
                           </div>
                           <div class="marker-store-phone" style="color:red">
                           <u>New Death Cases</u>: <b>+${numberWithCommas(countryGrowth.new_death_cases)}</b>

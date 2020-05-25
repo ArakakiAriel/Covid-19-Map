@@ -15,17 +15,21 @@ body {
     z-index: 100; /*adds a priority of layer*/
     font-size: 70px;
     top: 50px;
-    left: 100px;
+    left: 50px;
+    color: #9acadd;
+    opacity: 50%;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 .search-container {
     position: absolute; /* se solapea en el mismo mapa*/
     z-index: 100; /*adds a priority of layer*/
     top: 130px;
-    left: 100px;
+    left: 50px;
     width: 350px;
     height: 60px;
-    background-color: #454E53;
-    border-radius: 30px;
+    background-color: #9acadd;
+    opacity: 85%;
+    border-radius: 20px;
     display: flex;
 }
 .search-container .search {
@@ -40,7 +44,7 @@ body {
     font-size: 25px;
     background-color: transparent;
     border: none;
-    color: white;
+    color: rgb(41, 41, 41);
 }
 .search-container input:focus { /* we can add all the same style to the inputs into search-container class*/
     outline: none
@@ -55,7 +59,7 @@ body {
     position: absolute; /* se solapea en el mismo mapa*/
     z-index: 100; /*adds a priority of layer*/
     top: 220px;
-    left: 100px;
+    left: 50px;
     width: 350px;
     bottom: 20px;
     background: white;
@@ -65,7 +69,15 @@ body {
     overflow-y: hidden;
 
 }
-
+.death-tittle{
+    color: rgb(218, 51, 51);
+  }
+.recovered-tittle{
+    color: rgb(33, 175, 33);
+}
+.neutral-tittle{
+    color: #193a43;
+}
 .back-button {
     position: absolute; /* se solapea en el mismo mapa*/
     z-index: 100; /*adds a priority of layer*/
@@ -91,26 +103,66 @@ body {
     font-size: 15px;
     padding-left: 20px;
     padding-top: 5px;
-    color: rgb(182, 47, 29);
  }
  .store-container {
      border-bottom: 1px solid #979797;
      display: flex;
  }
 
+
+ .display-container {
+    display: flex;
+    justify-content: end;
+    border-bottom: none;
+}
+ 
 .store-container-background {
-     display: flex;
-     flex-grow: 1;
-     margin-bottom: 12px;
-     margin-top: 12px;
-     padding-left: 8px;
-     padding-right: 8px;
-     border-radius: 18px;
-     transition: all 0.2s ease-in-out;
+    display: flex;
+    flex-grow: 1;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 18px;
+    transition: all 0.2s ease-in-out;
+}
+
+.display-all-info{
+    display: flex;
 }
 
 .store-container-background:hover{
-    background-color: #ccc;
+   background-color: #ccc;
+}
+
+.display-all-container {
+    border-bottom: 1px solid #979797;
+    display: flex;
+}
+
+.display-all-onclick {
+    display: flex;
+    flex-grow: 1;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 18px;
+    transition: all 0.2s ease-in-out;
+}
+
+.display-all-onclick-background{
+    display: flex;
+    flex-grow: 1;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    justify-content: center;
+    background-color: rgb(186, 192, 197);
+    border-radius: 5px;
+}
+.display-all-onclick-background:hover{
+    color: rgb(29, 20, 75);
+    font-weight: bold;
 }
 
  .store-address span {
