@@ -275,7 +275,6 @@ async function consultCasesToday() {
   countryCases = await fetch(apiUrl).then(response => {
     return response.json();
   }).then(data => {
-    console.log(data.length);
     return data;
   }).catch(err => {
     console.log("Hubo un error: " + err);
@@ -290,7 +289,6 @@ async function displayStores(countryCode, flag) {
   var storesHtml = '';
   let counter = 1;
   var countryCases = await consultCasesToday();
-  console.log(countryCases);
   for (let index = 0; index < countryCases.length; index++) {
     let countryName = countryCases[index].country;//countries[index].addressLines;
     let confirmedCases = countryCases[index].total.confirmed;//countries[index].phoneNumber;
@@ -395,7 +393,6 @@ async function showGrowth(country) {
   let countries = await fetch(apiUrl).then(response => {
     return response.json();
   }).then(data => {
-    console.log(data.length);
     return data;
   }).catch(err => {
     console.log("Hubo un error: " + err);
@@ -440,13 +437,11 @@ function createMarker(name, index, latlng, countryData) {
     label: numberWithCommas(countryData.total.confirmed),
   });
   google.maps.event.addListener(marker, 'click', async function () {
-    console.log(name);
 
     map.setCenter(marker.position);
     map.setZoom(5);
     let countryGrowth = await showGrowth(name);
     displayStores(name, true);
-    console.log(countryGrowth);
     var aux = `
               <div class="marker-container">
                   <div class="marker-store">

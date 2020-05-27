@@ -117,7 +117,7 @@ async function makeTableByCountry() {
             }
     
         }
-
+        document.querySelector('.country-name').innerHTML = countryName.toUpperCase()
         displayNewCasesGraph(growthDataArray);
         document.querySelector('.my-country-table-container').innerHTML = countriesHtml
     }  

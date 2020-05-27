@@ -1,5 +1,18 @@
 async function displayNewCasesGraph(growthData) {
 
+    resetCanvas("line-chart-new-confirmed");
+    resetCanvas("line-chart-new-recovered");
+    resetCanvas("line-chart-new-deaths");
+    let confirmedChart = document.getElementById("line-chart-new-confirmed").getContext("2d");
+    let recoveredChart = document.getElementById("line-chart-new-recovered").getContext("2d");
+    let deathChart = document.getElementById("line-chart-new-deaths").getContext("2d");
+
+    confirmedChart.clearRect(0, 0, 1000, 480);
+
+    recoveredChart.clearRect(0, 0, 1000, 480);
+
+    deathChart.clearRect(0, 0, 1000, 480);
+
     let growthDataLength = growthData.length - 1;
     let dates = [];
     let confirmedCases = [];
@@ -25,8 +38,8 @@ async function displayNewCasesGraph(growthData) {
         averageDeaths += growthData[i].new_deaths;
 
     }
-    console.log(dates, confirmedCases);
-    new Chart(document.getElementById("line-chart-new-confirmed"), {
+    
+    new Chart(confirmedChart, {
         type: 'line',
         data: {
             labels: dates.reverse(),
@@ -76,7 +89,8 @@ async function displayNewCasesGraph(growthData) {
             }
         }
     });
-    new Chart(document.getElementById("line-chart-new-recovered"), {
+        
+    new Chart(recoveredChart, {
         type: 'line',
         data: {
             labels: dates.reverse(),
@@ -126,7 +140,7 @@ async function displayNewCasesGraph(growthData) {
             }
         }
     });
-    new Chart(document.getElementById("line-chart-new-deaths"), {
+    new Chart(deathChart, {
         type: 'line',
         data: {
             labels: dates.reverse(),
@@ -177,3 +191,12 @@ async function displayNewCasesGraph(growthData) {
         }
     });
 }
+
+function resetCanvas(canvasId){
+    $(`#${canvasId}`).remove(); // this is my <canvas> element
+    $('.graph').append(`<canvas id="${canvasId}"><canvas>`);
+    canvas = document.querySelector(`#${canvasId}`);
+    ctx = canvas.getContext('2d');
+    ctx.canvas.width = 1000; // resize to parent width
+    ctx.canvas.height = 480; // resize to parent height
+  };

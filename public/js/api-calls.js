@@ -4,7 +4,6 @@ async function consultCasesOnCountry(country){
     let countryData = await fetch(apiUrl).then(response => {
         return response.json();
     }).then(data => {
-        console.log(data);
         return data;
     }).catch(err => {
         console.log("Hubo un error: " + err);

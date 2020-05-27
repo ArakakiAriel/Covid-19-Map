@@ -124,9 +124,6 @@ async function loadAverageStatistics(){
         totalNewDeaths += statistics[index].total.deaths - statistics[index+1].total.deaths;
         totalNewRecovered += statistics[index].total.recovered - statistics[index+1].total.recovered;
     }
-    console.log(totalNewConfirmed);
-    console.log(totalNewDeaths);
-    console.log(totalNewRecovered);
     //<div class="total-result" style="font-size: 80px;">${globalCases.infected_countries}</div>
     var global = `
     <div class="total-tittle total-regular">Average New Confirmed per Day</div>
