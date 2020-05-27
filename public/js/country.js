@@ -117,7 +117,10 @@ async function makeTableByCountry() {
             }
     
         }
-        document.querySelector('.country-name').innerHTML = countryName.toUpperCase()
+        document.querySelector('.country-name').innerHTML = countryName.toUpperCase();
+        await resetCanvas("line-chart-new-confirmed", "graph-confirmed");
+        await resetCanvas("line-chart-new-recovered", "graph-recovered");
+        await resetCanvas("line-chart-new-deaths", "graph-deaths");
         displayNewCasesGraph(growthDataArray);
         document.querySelector('.my-country-table-container').innerHTML = countriesHtml
     }  

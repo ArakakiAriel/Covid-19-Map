@@ -59,22 +59,22 @@
                         </div>
                       </div>
                     </div>
-                <div class="global-data">
+                <div class="graph-data">
                   <div class="data-header"></div>
                     <div class="row">
                       <div class="col-md data-col-1"></div>
                       <div class="col-md data-col-2"></div>
                     </div>
-                    <div class="total-header total-regular country-name"></div>
+                    <div class="total-header total-regular country-name canvas"></div>
                     <div class="graphs">
-                      <div class="graph">
-                        <canvas id="line-chart-new-confirmed" width="1000" height="480"></canvas>
+                      <div class="graph-confirmed">
+                        <canvas class="canvas" id="line-chart-new-confirmed" width="1000" height="480"></canvas>
                       </div>
-                      <div class="graph">
-                        <canvas id="line-chart-new-recovered" width="1000" height="480"></canvas>
+                      <div class="graph-recovered">
+                        <canvas class="canvas" id="line-chart-new-recovered" width="1000" height="480"></canvas>
                       </div>
-                      <div class="graph">
-                        <canvas id="line-chart-new-deaths" width="1000" height="480"></canvas>
+                      <div class="graph-deaths">
+                        <canvas class="canvas" id="line-chart-new-deaths" width="1000" height="480"></canvas>
                       </div>
                     </div>
                   </div>   
@@ -124,5 +124,6 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
             <script src="assets/js/bootstrap.min.js"></script>
             <script src="/js/graphs.js"></script>
+            
 </body>
 </html>

@@ -1,8 +1,5 @@
 async function displayNewCasesGraph(growthData) {
 
-    resetCanvas("line-chart-new-confirmed");
-    resetCanvas("line-chart-new-recovered");
-    resetCanvas("line-chart-new-deaths");
     let confirmedChart = document.getElementById("line-chart-new-confirmed").getContext("2d");
     let recoveredChart = document.getElementById("line-chart-new-recovered").getContext("2d");
     let deathChart = document.getElementById("line-chart-new-deaths").getContext("2d");
@@ -192,11 +189,16 @@ async function displayNewCasesGraph(growthData) {
     });
 }
 
-function resetCanvas(canvasId){
-    $(`#${canvasId}`).remove(); // this is my <canvas> element
-    $('.graph').append(`<canvas id="${canvasId}"><canvas>`);
-    canvas = document.querySelector(`#${canvasId}`);
+async function resetCanvas(canvasName, canvasContainer){
+    console.log("ENTRO AL RESET CANVAS", canvasName, canvasContainer);
+    await $(`#${canvasName}`).remove(); // this is my <canvas> element
+    console.log("1");
+    await $(`.${canvasContainer}`).append(`<canvas class="canvas" id="${canvasName}"></canvas>`);
+    console.log("2");
+    let canvas = await document.querySelector(`#${canvasName}`);
+    console.log("3");
+    console.log(canvas);
     ctx = canvas.getContext('2d');
-    ctx.canvas.width = 1000; // resize to parent width
-    ctx.canvas.height = 480; // resize to parent height
+    ctx.canvas.width = 1000;
+    ctx.canvas.height = 480;
   };

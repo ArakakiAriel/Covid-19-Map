@@ -83,6 +83,9 @@
   .recovered{
     color: rgb(142, 228, 142);
   }
+  .canvas{
+    background: rgba(0,0,0,0.8);
+  }
   .global-data{
     color: white;
     background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 25%, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
@@ -135,7 +138,4 @@
   .my-col {
     border: 1px solid rgb(184, 184, 184);
     text-align: center;
-  }
-  .graphs{
-    padding-left: 50px;
   }

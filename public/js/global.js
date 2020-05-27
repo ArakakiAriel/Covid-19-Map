@@ -4,7 +4,7 @@ window.onload = () => {
 }
 
 async function makeGlobalCasesTable() {
-
+    console.log("haciendo cosas");
     let date;
     let infectedCountries;
     let confirmedCases;
@@ -104,6 +104,9 @@ async function makeGlobalCasesTable() {
             </tr>`
     
         }
+        await resetCanvas("line-chart-new-confirmed", "graph-confirmed");
+        await resetCanvas("line-chart-new-recovered", "graph-recovered");
+        await resetCanvas("line-chart-new-deaths", "graph-deaths");
         displayNewCasesGraph(growthDataArray);
     document.querySelector('.my-table-container-s').innerHTML = statisticsHtml
 }
