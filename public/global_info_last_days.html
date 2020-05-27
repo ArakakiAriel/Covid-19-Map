@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Covid-19 Tracker - Global Info Last 10 Days</title>
+    <title>Covid-19 Tracker - Global Info Last 21 Days</title>
     <link rel = "icon" type = "image/png" href = "/img/covidIcon.png">
     <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
     <script src="../js/global.js"></script>
     <script src="/js/utils.js"></script>
     <script src="/js/api-calls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <link rel="stylesheet" href="./style/webpage_style.css">
     <style>
       
@@ -39,7 +40,7 @@
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/country.html">By Country</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/global_info_last_days.html">Global Last 10 Days</a>
+                    <a class="dropdown-item" href="/global_info_last_days.html">Global Last 21 Days</a>
                   </div>
                 </li>
                 <li class="nav-item">
@@ -57,6 +58,17 @@
                     <div class="row">
                       <div class="col-md data-col-1"></div>
                       <div class="col-md data-col-2"></div>
+                    </div>
+                    <div class="graphs">
+                      <div class="graph">
+                        <canvas id="line-chart-new-confirmed" width="1000" height="480"></canvas>
+                      </div>
+                      <div class="graph">
+                        <canvas id="line-chart-new-recovered" width="1000" height="480"></canvas>
+                      </div>
+                      <div class="graph">
+                        <canvas id="line-chart-new-deaths" width="1000" height="480"></canvas>
+                      </div>
                     </div>
                   </div>   
                   <table class="my-table-container-s">
@@ -105,5 +117,6 @@
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
             <script src="assets/js/bootstrap.min.js"></script>
+            <script src="/js/graphs.js"></script>
 </body>
 </html>

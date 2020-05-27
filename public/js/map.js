@@ -297,8 +297,8 @@ async function displayStores(countryCode, flag) {
     if(flag){
       if (countryName == countryCode || countryCode == null) {
         storesHtml += `
-                    <div class="store-container" onclick="setOnClickListener(${index});" >
-                        <div class="store-container-background">
+                    <div class="country-container" onclick="setOnClickListener(${index});" >
+                        <div class="country-container-background">
                             <div class="store-info-container">
                                 <div class="store-address">
                                     <span> <b>${countryName} </b></span> 
@@ -326,8 +326,8 @@ async function displayStores(countryCode, flag) {
     }else{
       if (countryName.includes(countryCode) || countryCode == null) {
         storesHtml += `
-                    <div class="store-container" onclick="setOnClickListener(${index});" >
-                        <div class="store-container-background">
+                    <div class="country-container" onclick="setOnClickListener(${index});" >
+                        <div class="country-container-background">
                             <div class="store-info-container">
                                 <div class="store-address">
                                     <span> <b>${countryName} </b></span> 
@@ -364,7 +364,7 @@ async function displayStores(countryCode, flag) {
     </div>
   </div>`
   
-  document.querySelector('.store-list').innerHTML = storesHtml
+  document.querySelector('.country-list').innerHTML = storesHtml
 }
 
 function setOnClickListener(index) {

@@ -47,7 +47,7 @@ async function makeGlobalCasesTable() {
   let greenTD = `<td style="color: green; background-color: #d8e6da">`
 
     let statistics = await runLastDaysGlobalStatistics();
-
+    let growthDataArray = [];
         for (let index = 0; index < statistics.length - 1; index++) {
             date = statistics[index].date;
             infectedCountries = statistics[index].infected_countries;
@@ -61,7 +61,16 @@ async function makeGlobalCasesTable() {
             newConfirmed = statistics[index].total.confirmed - statistics[index+1].total.confirmed;
             newDeaths = statistics[index].total.deaths - statistics[index+1].total.deaths;
             newRecovered = statistics[index].total.recovered - statistics[index+1].total.recovered;
-            growthFactor = (Math.log(newConfirmed) / Math.log(statistics[index+1].total.actives)).toFixed(2),
+            growthFactor = (Math.log(newConfirmed) / Math.log(statistics[index+1].total.actives)).toFixed(2);
+
+            let growthData = {
+                new_confirmed: newConfirmed,
+                new_deaths: newDeaths,
+                new_recovered: newRecovered,
+                growth_factor: growthFactor,
+                date: statistics[index].date
+            };
+            growthDataArray.push(growthData);
             statisticsHtml += `
             <tr class="country-list">
               <td class="table-data">${date}</th>
@@ -95,7 +104,7 @@ async function makeGlobalCasesTable() {
             </tr>`
     
         }
-    
+        displayNewCasesGraph(growthDataArray);
     document.querySelector('.my-table-container-s').innerHTML = statisticsHtml
 }
 
@@ -120,12 +129,12 @@ async function loadAverageStatistics(){
     console.log(totalNewRecovered);
     //<div class="total-result" style="font-size: 80px;">${globalCases.infected_countries}</div>
     var global = `
-    <div class="total-tittle death-tittle">Average New Confirmed per Day</div>
-    <div class="total-result death">+${numberWithCommas(totalNewConfirmed/statisticsLength)}</div>
+    <div class="total-tittle total-regular">Average New Confirmed per Day</div>
+    <div class="total-result">+${numberWithCommas((totalNewConfirmed/statisticsLength).toFixed(0))}</div>
     <div class="total-tittle death-tittle">Average New Deaths per Day</div>
-    <div class="total-result death">+${numberWithCommas(totalNewDeaths/statisticsLength)}</div>
+    <div class="total-result death">+${numberWithCommas((totalNewDeaths/statisticsLength).toFixed(0))}</div>
     <div class="total-tittle recovered-tittle">Average New Recovered per Day</div>
-    <div class="total-result total-minor-result recovered">+${numberWithCommas(totalNewRecovered/statisticsLength)}</div>
+    <div class="total-result total-minor-result recovered">+${numberWithCommas((totalNewRecovered/statisticsLength).toFixed(0))}</div>
     `;
 
     var global2 = ""//`
@@ -138,6 +147,6 @@ async function loadAverageStatistics(){
     // `
     document.querySelector('.data-header').innerHTML = globalHeader
     document.querySelector('.data-col-1').innerHTML = global
-    document.querySelector('.data-col-2').innerHTML = global2
+    //document.querySelector('.data-col-2').innerHTML = global2
 
 };

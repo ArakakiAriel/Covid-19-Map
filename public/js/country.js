@@ -10,7 +10,7 @@ async function makeTableByCountry() {
     if(countryData.code){
         alert("(404) Couldn't find data related with the country " + countryName.toUpperCase());
     }else{
-        showStatisticsLastDays(countryName, countryData, countryGrowthData);
+        //showStatisticsLastDays(countryName, countryData, countryGrowthData);
     
         var countriesHtml = `
         <tr>
@@ -40,12 +40,24 @@ async function makeTableByCountry() {
           <th class="country-table-tittle">New Recovered</th>
           <th class="country-table-tittle">Growth Factor</th>
         </tr>`;
+
+        let growthDataArray = [];
         for (let i = 0; i < countryData.length; i++) {
             if(i < countryData.length - 1){
                 
                 let newConfirmed = countryGrowthData[i].new_confirmed_cases;
                 let newDeaths = countryGrowthData[i].new_death_cases;
                 let newRecovered = countryGrowthData[i].new_recovered_cases;
+                let growthFactor = countryGrowthData[i].growth_factor;
+
+                let growthData = {
+                    new_confirmed: newConfirmed,
+                    new_deaths: newDeaths,
+                    new_recovered: newRecovered,
+                    growth_factor: growthFactor,
+                    date: countryData[i].updated_date
+                }; 
+                growthDataArray.push(growthData);
                 
                 let redTD = `<td style="color: red; background-color: #efdede">`
                 let greenTD = `<td style="color: green; background-color: #d8e6da">`
@@ -77,7 +89,7 @@ async function makeTableByCountry() {
                     countriesHtml += `<td style=" background-color: #e6e6d8">` + newRecovered + "</td>"
                 }
                 countriesHtml += `
-                <td class="table-data">${countryGrowthData[i].growth_factor}</td>
+                <td class="table-data">${growthFactor}</td>
                 </tr>`
                 
         
@@ -105,6 +117,8 @@ async function makeTableByCountry() {
             }
     
         }
+
+        displayNewCasesGraph(growthDataArray);
         document.querySelector('.my-country-table-container').innerHTML = countriesHtml
     }  
 }

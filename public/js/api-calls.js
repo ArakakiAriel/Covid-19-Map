@@ -29,7 +29,7 @@ async function consultGrowthOnCountry(country){
 
 async function runLastDaysGlobalStatistics(){
     let statistics;
-    let apiUrl = `https://covid-api-info.herokuapp.com/api/covid/cases/list_basic_statistics`//'https://covid-api-info.herokuapp.com/api/covid/cases/';
+    let apiUrl = "http://localhost:3000/api/covid/cases/list_basic_statistics"//`https://covid-api-info.herokuapp.com/api/covid/cases/list_basic_statistics`//'https://covid-api-info.herokuapp.com/api/covid/cases/';
         statistics = await fetch(apiUrl).then(response => {
             return response.json();
         }).then(data => {
