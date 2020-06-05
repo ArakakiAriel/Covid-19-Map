@@ -11,6 +11,14 @@ async function displayNewCasesGraph(growthData) {
     deathChart.clearRect(0, 0, 1000, 480);
 
     let growthDataLength = growthData.length - 1;
+    let maxTicks = 0;
+    if(growthDataLength > 35) {
+        maxTicks = growthDataLength/7;
+    }else if(growthDataLength < 10){
+        maxTicks = growthDataLength;
+    }else{
+        maxTicks = growthDataLength/3;
+    }
     let dates = [];
     let confirmedCases = [];
     let recoveredCases = [];
@@ -69,6 +77,9 @@ async function displayNewCasesGraph(growthData) {
                 xAxes: [{
                     ticks: {
                         fontColor: "white",
+                        fontSize: 15,
+                        autoSkip: true,
+                        maxTicksLimit: maxTicks
                     },
                     gridLines: {
                         color: "rgb(184, 184, 184, 0.3)",
@@ -120,6 +131,9 @@ async function displayNewCasesGraph(growthData) {
                 xAxes: [{
                     ticks: {
                         fontColor: "white",
+                        fontSize: 15,
+                        autoSkip: true,
+                        maxTicksLimit: maxTicks
                     },
                     gridLines: {
                         color: "rgb(184, 184, 184, 0.3)",
@@ -169,7 +183,10 @@ async function displayNewCasesGraph(growthData) {
                 }],
                 xAxes: [{
                     ticks: {
-                        fontColor: "white"
+                        fontColor: "white",
+                        fontSize: 15,
+                        autoSkip: true,
+                        maxTicksLimit: maxTicks
                     },
                     gridLines: {
                         color: "rgb(184, 184, 184, 0.3)",
