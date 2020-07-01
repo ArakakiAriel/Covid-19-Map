@@ -1,7 +1,7 @@
 
 async function consultCasesOnCountry(country){
     let apiUrl = `https://covid-api-info.herokuapp.com/api/covid/cases/country/${country}`//'https://covid-api-info.herokuapp.com/api/covid/cases/';
-    let countryData = await fetch(apiUrl).then(response => {
+    let countryData = await fetch(apiUrl, {mode: 'cors'}).then(response => {
         return response.json();
     }).then(data => {
         return data;
@@ -13,7 +13,7 @@ async function consultCasesOnCountry(country){
 }
 async function consultGrowthOnCountry(country){
     let apiUrl = `https://covid-api-info.herokuapp.com/api/covid/cases/country/${country}/growth`//'https://covid-api-info.herokuapp.com/api/covid/cases/';
-    let countryData = await fetch(apiUrl).then(response => {
+    let countryData = await fetch(apiUrl, {mode: 'cors'}).then(response => {
         return response.json();
     }).then(data => {
         console.log(data);
@@ -29,7 +29,7 @@ async function consultGrowthOnCountry(country){
 async function runLastDaysGlobalStatistics(){
     let statistics;
     let apiUrl = `https://covid-api-info.herokuapp.com/api/covid/cases/list_basic_statistics`//'https://covid-api-info.herokuapp.com/api/covid/cases/';
-        statistics = await fetch(apiUrl).then(response => {
+        statistics = await fetch(apiUrl, {mode: 'cors'}).then(response => {
             return response.json();
         }).then(data => {
             return data;
@@ -43,7 +43,7 @@ async function runLastDaysGlobalStatistics(){
 
 async function consultCasesToday(){
     let apiUrl = 'https://covid-api-info.herokuapp.com/api/covid/cases'//'https://covid-api-info.herokuapp.com/api/covid/cases/';
-    let countries = await fetch(apiUrl).then(response => {
+    let countries = await fetch(apiUrl, {mode: 'cors'}).then(response => {
         return response.json();
     }).then(data => {
         return data;
@@ -57,7 +57,7 @@ async function consultCasesToday(){
 
 async function consultGlobalStatistics(){
     let apiUrl = 'https://covid-api-info.herokuapp.com/api/covid/cases/basic_statistics'//'https://covid-api-info.herokuapp.com/api/covid/cases/';
-    let statistics = await fetch(apiUrl).then(response => {
+    let statistics = await fetch(apiUrl, {mode: 'cors'}).then(response => {
         return response.json();
     }).then(data => {
         return data;
