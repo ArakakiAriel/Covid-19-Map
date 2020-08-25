@@ -74,19 +74,19 @@ async function makeTableByCountry() {
                   <td class="table-data-percentages" >${countryData[i].percentage.recovered}</td>
                 `
                 if(newConfirmed > 0){
-                    countriesHtml += redTD + "+" + newConfirmed + "</td>";
+                    countriesHtml += redTD + "+" + numberWithCommas(newConfirmed) + "</td>";
                 }else{
-                    countriesHtml += greenTD + newConfirmed + "</td>";
+                    countriesHtml += greenTD + numberWithCommas(newConfirmed) + "</td>";
                 }
                 if(newDeaths > 0){
-                    countriesHtml += redTD + "+" + newDeaths + "</td>";
+                    countriesHtml += redTD + "+" + numberWithCommas(newDeaths) + "</td>";
                 }else{
-                    countriesHtml += greenTD + newDeaths + "</td>";
+                    countriesHtml += greenTD + numberWithCommas(newDeaths) + "</td>";
                 }
                 if(newRecovered > 0){
-                    countriesHtml += greenTD + "+" + newRecovered + "</td>"
+                    countriesHtml += greenTD + "+" + numberWithCommas(newRecovered) + "</td>"
                 }else{
-                    countriesHtml += `<td style=" background-color: #e6e6d8">` + newRecovered + "</td>"
+                    countriesHtml += `<td style=" background-color: #e6e6d8">` + numberWithCommas(newRecovered) + "</td>"
                 }
                 countriesHtml += `
                 <td class="table-data">${growthFactor}</td>

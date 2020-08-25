@@ -85,19 +85,19 @@ async function makeGlobalCasesTable() {
               `
 
             if(newConfirmed > 0){
-                statisticsHtml += redTD + "+" + newConfirmed + "</td>";
+                statisticsHtml += redTD + "+" + numberWithCommas(newConfirmed) + "</td>";
             }else{
-                statisticsHtml += greenTD + newConfirmed + "</td>";
+                statisticsHtml += greenTD + numberWithCommas(newConfirmed) + "</td>";
             }
             if(newDeaths > 0){
-                statisticsHtml += redTD + "+" + newDeaths + "</td>";
+                statisticsHtml += redTD + "+" + numberWithCommas(newDeaths) + "</td>";
             }else{
-                statisticsHtml += greenTD + newDeaths + "</td>";
+                statisticsHtml += greenTD + numberWithCommas(newDeaths) + "</td>";
             }
             if(newRecovered > 0){
-                statisticsHtml += greenTD + "+" + newRecovered + "</td>"
+                statisticsHtml += greenTD + "+" + numberWithCommas(newRecovered) + "</td>"
             }else{
-                statisticsHtml += `<td style=" background-color: #e6e6d8">` + newRecovered + "</td>"
+                statisticsHtml += `<td style=" background-color: #e6e6d8">` + numberWithCommas(newRecovered) + "</td>"
             }
             statisticsHtml += `
             <td class="table-data">${growthFactor}</td>

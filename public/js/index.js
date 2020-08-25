@@ -107,7 +107,7 @@ async function loadGlobalCases(){
     <div class="total-tittle death-tittle">Global Death Cases</div>
     <div class="total-result death">${numberWithCommas(globalCases.total.deaths)} <a class="total-minor">(${globalCases.percentage.deaths})</a></div>
     <div class="total-tittle recovered-tittle">Global Recovered Cases</div>
-    <div class="total-result recovered">${numberWithCommas(globalCases.total.recovered)} <a class="total-minor">(${globalCases.percentage.recovered})</a></div>
+    <div class="total-result recovered">${numberWithCommas(globalCases.total.recovered)} </div>
     <div class="total-tittle death-tittle" >Mortality Rate<div class="total-minor-tittle">(deaths cases / closed cases)</div></div>
     <div class="total-result death total-minor-result">${globalCases.percentage.mortality_rate}</div>
     `
