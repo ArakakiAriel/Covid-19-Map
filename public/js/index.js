@@ -96,18 +96,18 @@ async function loadGlobalCases(){
     `
     var global = `
     <div class="total-tittle total-regular">Global Confirmed Cases</div>
-    <div class="total-result">${numberWithCommas(globalCases.total.confirmed)}</div>
+    <div class="total-result">${parseNumber(globalCases.total.confirmed)}</div>
     <div class="total-tittle total-regular">Global Active Cases</div>
-    <div class="total-result">${numberWithCommas(globalCases.total.actives)}</div>
+    <div class="total-result">${parseNumber(globalCases.total.actives)}</div>
     <div class="total-tittle total-regular">Global Closed Cases<div class="total-minor-tittle">(recovered cases + deaths cases)</div></div>
-    <div class="total-result total-minor-result">${numberWithCommas(globalCases.total.closed_cases)}</div>
+    <div class="total-result total-minor-result">${parseNumber(globalCases.total.closed_cases)}</div>
     `;
 
     var global2 = `
     <div class="total-tittle death-tittle">Global Death Cases</div>
-    <div class="total-result death">${numberWithCommas(globalCases.total.deaths)} <a class="total-minor">(${globalCases.percentage.deaths})</a></div>
+    <div class="total-result death">${parseNumber(globalCases.total.deaths)} <a class="total-minor">(${globalCases.percentage.deaths})</a></div>
     <div class="total-tittle recovered-tittle">Global Recovered Cases</div>
-    <div class="total-result recovered">${numberWithCommas(globalCases.total.recovered)} </div>
+    <div class="total-result recovered">${parseNumber(globalCases.total.recovered)} </div>
     <div class="total-tittle death-tittle" >Mortality Rate<div class="total-minor-tittle">(deaths cases / closed cases)</div></div>
     <div class="total-result death total-minor-result">${globalCases.percentage.mortality_rate}</div>
     `
