@@ -21,6 +21,7 @@ app.set('view engine', 'hbs');
 
 //Peticiones que entren con "/" ejecutan el siguiente callback
 app.get('/', (req, res) => {
+    console.log("ENTRO");
     //Renderiza un archivo hbs y se le pasa un objeto con los parametros dinamicos a la pagina web 
     res.render('home', {
         nombre: "Kenji arakaki",
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
     }); 
 });
 app.get('/about', (req, res) => {
+
     //Renderiza un archivo hbs y se le pasa un objeto con los parametros dinamicos a la pagina web 
     res.render('about', {
         anio: new Date().getFullYear()
@@ -47,4 +49,5 @@ app.listen(process.env.PORT, () => {
 (() => {
     // if one of the dependencies does not response the ms can not start
     require('./app/services/redis/init-redis-connection'); // eslint-disable-line
+
   })();

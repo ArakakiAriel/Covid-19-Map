@@ -16,7 +16,6 @@ async function consultGrowthOnCountry(country){
     let countryData = await fetch(apiUrl, {mode: 'cors'}).then(response => {
         return response.json();
     }).then(data => {
-        console.log(data);
         return data;
     }).catch(err => {
         console.log("Hubo un error: " + err);

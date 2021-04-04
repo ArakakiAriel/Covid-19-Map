@@ -6,6 +6,16 @@ var map;
 var markers = [];
 var infoWindow;
 
+//Function to redirect to the COUNTRY page
+async function redirectCountry(country) {
+    let url = await window.location.href;
+    parameterPosition = url.search("map");
+    url = url.slice(0, parameterPosition);
+    let newUrl = url+"country.html?country="+country;
+    console.log(newUrl);
+    window.location.replace(newUrl);
+}
+
 function searchCountries() {
   let countryCode = document.getElementById("country-code-input").value;
   displayStores(countryCode.toUpperCase());
@@ -404,6 +414,7 @@ async function showGrowth(country) {
 function createMarker(name, index, latlng, countryData) {
 
 
+
   var html = "<b>" + name + "</b> <br/> " + "some-status" + " <hr/> <br/>" + "someAdress";
   let sizeOfMarker = 100;
     if(countryData.total.confirmed < 10){
@@ -445,7 +456,7 @@ function createMarker(name, index, latlng, countryData) {
     var aux = `
               <div class="marker-container">
                   <div class="marker-store">
-                      <div class="marker-store-name">
+                    <div class="marker-store-name">
                           <label style="font-size: large;"><b>${name}</b></label>
                       </div>
                       <div class="marker-store-status">
@@ -470,13 +481,19 @@ function createMarker(name, index, latlng, countryData) {
                           <div class="marker-store-phone">
                           <u>Growth Factor</u>: <b>${countryGrowth.growth_factor}</b>
                           </div>
+                          
+
                       </div>
                   </div>
               </div>
-  `;
+  `;//<button id="redirect">More details</button>
 
-    infoWindow.setContent(aux);
+    await infoWindow.setContent(aux);
     infoWindow.open(map, marker);
+
+
+    //const button = await document.querySelector('#redirect');
+    // button.addEventListener('click', () => { redirectCountry(name) });
   });
   markers.push(marker);
 }

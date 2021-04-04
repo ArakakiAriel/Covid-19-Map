@@ -207,14 +207,9 @@ async function displayNewCasesGraph(growthData) {
 }
 
 async function resetCanvas(canvasName, canvasContainer){
-    console.log("ENTRO AL RESET CANVAS", canvasName, canvasContainer);
     await $(`#${canvasName}`).remove(); // this is my <canvas> element
-    console.log("1");
     await $(`.${canvasContainer}`).append(`<canvas class="canvas" id="${canvasName}"></canvas>`);
-    console.log("2");
     let canvas = await document.querySelector(`#${canvasName}`);
-    console.log("3");
-    console.log(canvas);
     ctx = canvas.getContext('2d');
     ctx.canvas.width = 1000;
     ctx.canvas.height = 480;

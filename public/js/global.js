@@ -4,7 +4,6 @@ window.onload = () => {
 }
 
 async function makeGlobalCasesTable() {
-    console.log("haciendo cosas");
     let date;
     let infectedCountries;
     let confirmedCases;

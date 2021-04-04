@@ -1,9 +1,33 @@
 window.onload = () => {
+    getParameters();
 }
 
-async function makeTableByCountry() {
+async function addParameterInUrl() {
+    let country = await document.getElementById("country-name-input").value;
+    let url = await window.location.href;
+    parameterPosition = url.search("\\?");
+    url = (parameterPosition != -1) ? url.slice(0, parameterPosition) : url;
+    let newUrl = url+"?country="+country;
+    console.log(newUrl);
+    window.location.replace(newUrl);
 
-    let countryName = await document.getElementById("country-name-input").value;
+}
+
+
+function getParameters(){
+    let parameters = new URLSearchParams(window.location.search);
+    console.log(parameters.get("country"));
+    let country = parameters.get("country")
+    if (country){
+        console.log("ENTRE PORQUE ENCONTRE PAIS");
+        makeTableByCountry(country);
+    }
+    return null;
+}
+
+async function makeTableByCountry(country) {
+
+    let countryName = country
     let countryData = await consultCasesOnCountry(countryName);
     let countryGrowthData = await consultGrowthOnCountry(countryName);
     //Only errors has code TODO: fix the API and every api-call
@@ -129,7 +153,7 @@ async function makeTableByCountry() {
 
 function search() {
     if(event.key === 'Enter') {
-        makeTableByCountry();       
+        addParameterInUrl();       
     }
 }
 
